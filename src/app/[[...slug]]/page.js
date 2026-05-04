@@ -14,7 +14,7 @@ export default async function Page({ params }) {
 	}
 
 	let sbParams = {
-		version: 'published',
+		version: 'draft',
 	};
 
 	const storyblokApi = getStoryblokApi();
