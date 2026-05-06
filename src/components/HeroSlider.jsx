@@ -62,11 +62,10 @@ const HeroSlider = ({ blok }) => {
       {...storyblokEditable(blok)}
       style={{
         position: 'relative',
-        width: '100vw',
-        left: 0,
-        height: '1920px',
+        width: '100%',
+        height: '100vh',
         minHeight: '600px',
-        maxHeight: '1920px',
+        maxHeight: '100vh',
         overflow: 'hidden',
         background: '#0a0a0a',
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
@@ -120,7 +119,7 @@ const HeroSlider = ({ blok }) => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: '0 60px 80px',
+        padding: '0 24px 80px',
         alignItems: 'center',
         textAlign: 'center',
         maxWidth: '100%',
@@ -131,7 +130,7 @@ const HeroSlider = ({ blok }) => {
           <img
             src={slide.logo.filename}
             alt="logo"
-            style={{ width: '720px' }}
+            style={{ width: '100%', maxWidth: '480px', }}
           />
         )}
 
@@ -169,7 +168,7 @@ const HeroSlider = ({ blok }) => {
         {/* Subtitle */}
         {slide?.subtitle && (
           <p style={{
-            fontSize: '1.75rem',
+            fontSize: 'clamp(1rem, 3vw, 1.75rem)',
             margin: '0 0 36px',
             opacity: 0.8,
             lineHeight: 1.6,
@@ -187,13 +186,13 @@ const HeroSlider = ({ blok }) => {
               href={slide.button_link || '#'}
               style={{
                 display: 'inline-block',
-                padding: '24px 48px',
+                padding: 'clamp(12px, 3vw, 24px) clamp(24px, 5vw, 48px)',
                 background: 'transparent',
                 color: '#fff',
                 border: '1px solid #fff',
                 textDecoration: 'none',
                 fontWeight: '600',
-                fontSize: '1.5rem',
+                fontSize: 'clamp(0.8rem, 2vw, 1.5rem)',
                 letterSpacing: '2px',
                 textTransform: 'uppercase',
                 transition: 'background 0.2s',
@@ -237,7 +236,7 @@ const HeroSlider = ({ blok }) => {
           style={{
             position: 'absolute',
             bottom: '80px',
-            right: '60px',
+            right: '16px',
             width: '44px',
             height: '44px',
             borderRadius: '50%',
@@ -264,7 +263,8 @@ const HeroSlider = ({ blok }) => {
         <div style={{
           position: 'absolute',
           bottom: '36px',
-          left: '60px',
+          left: '50%',
+          transform: 'translateX(-50%)',
           display: 'flex',
           gap: '8px',
           alignItems: 'center',
