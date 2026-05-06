@@ -1,11 +1,18 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const FeatureColumns = ({ blok }) => {
   const items = blok?.item || [];
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   if (items.length === 0) return null;
 
@@ -16,6 +23,7 @@ const FeatureColumns = ({ blok }) => {
         display: 'flex',
         width: '100%',
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
+        flexDirection: isMobile ? 'column' : 'row',
       }}
     >
       {items.map((item, i) => (
@@ -28,7 +36,7 @@ const FeatureColumns = ({ blok }) => {
             flex: '1 1 0',
             position: 'relative',
             overflow: 'hidden',
-            minHeight: '100vh',
+            minHeight: isMobile ? '80vw' : '80vh',
             textDecoration: 'none',
             display: 'block',
           }}
@@ -69,7 +77,7 @@ const FeatureColumns = ({ blok }) => {
           }}>
             {item.eyebrow && (
               <p style={{
-                fontSize: '1rem',
+                fontSize: '0.75rem',
                 fontWeight: '700',
                 letterSpacing: '2.5px',
                 textTransform: 'uppercase',
@@ -81,7 +89,7 @@ const FeatureColumns = ({ blok }) => {
             )}
             {item.heading && (
               <h2 style={{
-                fontSize: 'clamp(2rem, 3vw, 2.3rem)',
+                fontSize: 'clamp(1.25rem, 2vw, 1.6rem)',
                 fontWeight: '800',
                 margin: '0 0 10px',
                 lineHeight: 1.2,
@@ -93,7 +101,7 @@ const FeatureColumns = ({ blok }) => {
             )}
             {item.description && (
               <p style={{
-                fontSize: '1.25rem',
+                fontSize: '1rem',
                 lineHeight: 1.6,
                 margin: '0 0 20px',
                 opacity: 0.85,
@@ -105,7 +113,7 @@ const FeatureColumns = ({ blok }) => {
             )}
             {item.cta_label && (
               <span style={{
-                fontSize: '1rem',
+                fontSize: '0.75rem',
                 fontWeight: '700',
                 letterSpacing: '2px',
                 textTransform: 'uppercase',

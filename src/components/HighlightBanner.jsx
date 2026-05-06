@@ -13,6 +13,7 @@ const HighlightBanner = ({ blok }) => {
         display: "flex",
         flexDirection: "row",
         alignItems: "stretch",
+        flexWrap: 'wrap',
         width: "100%",
         minHeight: "480px",
         backgroundColor: "#fff",
@@ -20,7 +21,7 @@ const HighlightBanner = ({ blok }) => {
       }}
     >
       {/* ซ้าย: รูป */}
-      <div style={{ flex: "0 0 50%", position: "relative", overflow: "hidden" }}>
+      <div style={{ flex: '1 1 300px', minWidth: 0 }}>
         {blok?.image?.filename && (
           <img
             src={blok.image.filename}
@@ -52,11 +53,12 @@ const HighlightBanner = ({ blok }) => {
           <h2
             style={{
               color: "#1a1a1a",
-              fontSize: "clamp(36px, 5vw, 72px)",
+              fontSize: "clamp(20px, 3vw, 48px)",
               fontWeight: "800",
               lineHeight: 1.2,
               margin: "0 0 20px",
               whiteSpace: "pre-line",
+              maxWidth: "800px",
             }}
           >
             {blok.title}
@@ -67,11 +69,11 @@ const HighlightBanner = ({ blok }) => {
           <p
             style={{
               color: "#555",
-              fontSize: "20px",
+              fontSize: "16px",
               lineHeight: 1.75,
               margin: "0 0 20px",
               fontWeight: "300",
-              maxWidth: "975px",
+              maxWidth: "800px",
             }}
           >
             {blok.description}
@@ -85,13 +87,13 @@ const HighlightBanner = ({ blok }) => {
             onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = '#000000'; e.currentTarget.style.color = '#000000'; }}
             style={{
               display: "inline-block",
-              padding: "16px 48px",
+              padding: "12px 36px",
               background: hovered ? "#1a1a1a" : "transparent",
               color: hovered ? "#fff" : "#1a1a1a",
               border: "2px solid #1a1a1a",
               textDecoration: "none",
               fontWeight: "600",
-              fontSize: "1.25rem",
+              fontSize: "0.9rem",
               letterSpacing: "2px",
               textTransform: "uppercase",
               transition: "all 0.2s",

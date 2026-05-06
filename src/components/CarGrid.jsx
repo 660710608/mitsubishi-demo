@@ -1,20 +1,30 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const CarGrid = ({ blok }) => {
   const cars = blok?.cars || [];
+  const [visibleCount, setVisibleCount] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(cars.length);
-  const visibleCount = 3;
-  const loopCars = [...cars, ...cars, ...cars];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [transitioning, setTransitioning] = useState(true);
+
+  useEffect(() => {
+    const update = () => {
+      setVisibleCount(window.innerWidth <= 768 ? 1 : 3);
+      setIsMobile(window.innerWidth <= 768);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   if (cars.length === 0) return null;
 
   const cardWidth = 100 / visibleCount;
-
-  const [transitioning, setTransitioning] = useState(true);
+  const loopCars = [...cars, ...cars, ...cars];
 
   const next = () => {
     setTransitioning(true);
@@ -92,7 +102,9 @@ const CarGrid = ({ blok }) => {
                   onMouseEnter={() => setHoveredIndex(i)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   style={{
-                    display: 'block',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                     textDecoration: 'none',
                     color: '#111',
                     position: 'relative',
@@ -102,12 +114,12 @@ const CarGrid = ({ blok }) => {
                 >
                   {/* Image */}
                   <div style={{
-                    padding: '32px 24px 120px',
+                    height: isMobile ? '220px' : '480px',
+                    padding: isMobile ? '24px' : '32px 24px 120px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    height: '480px',
                   }}>
                     {car.image?.filename ? (
                       <img
@@ -135,18 +147,17 @@ const CarGrid = ({ blok }) => {
                     padding: '0 16px',
                   }}>
                     <h3 style={{
-                      fontSize: '1.25rem',
+                      fontSize: '1rem',
                       fontWeight: '700',
                       letterSpacing: '1.5px',
                       textTransform: 'uppercase',
-                      margin: '0 0 4px',
                       color: hoveredIndex === i ? '#e60012' : '#111',
                       transition: 'color 0.2s ease',
                     }}>
                       {car.name}
                     </h3>
                     {car.price && (
-                      <p style={{ fontSize: '1rem', color: '#555', margin: 0 }}>
+                      <p style={{ fontSize: '0.75rem', color: '#555', margin: 0 }}>
                         {car.price}
                       </p>
                     )}
