@@ -7,18 +7,21 @@ export default async function Page({ params }) {
 	const fullSlug = slug ? slug.filter(s => s !== 'en' && s !== 'th').join('/') : 'home';
 
 
-	const filteredSlug = slug ? slug.filter(s => s !== 'en' && s !== 'th') : [];
-
-	if (fullSlug !== 'home' && fullSlug !== '') {
-		return notFound();
-	}
-
 	let sbParams = {
 		version: 'draft',
 	};
 
 	const storyblokApi = getStoryblokApi();
-	let { data } = await storyblokApi.get(`cdn/stories/${fullSlug}`, sbParams);
+
+	let data;
+	try {
+		const response = await storyblokApi.get(`cdn/stories/${fullSlug}`, sbParams);
+		data = response.data;
+	} catch (e) {
+		return notFound();
+	}
+
+	if (!data?.story) return notFound();
 
 	return <StoryblokStory story={data.story} />;
 }
