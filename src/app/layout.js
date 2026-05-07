@@ -15,12 +15,18 @@ export default function RootLayout({ children }) {
 	return (
 		<StoryblokProvider>
 			<html lang="en" style={{ margin: 0, padding: 0, width: '100%' }} suppressHydrationWarning>
+				<head>
+					<link rel="preconnect" href="https://fonts.googleapis.com" />
+					<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+					<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+				</head>
 				<body style={{
 					margin: 0,
 					padding: 0,
 					width: '100%',
 					maxWidth: 'none',
 					overflowX: 'hidden',
+					fontFamily: "'Roboto', sans-serif",
 				}} suppressHydrationWarning>
 					<main style={{
 						display: 'block',

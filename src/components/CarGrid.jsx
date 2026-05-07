@@ -2,6 +2,7 @@
 
 import { storyblokEditable } from '@storyblok/react';
 import { useState, useEffect, useRef } from 'react';
+import styles from './CarGrid.module.css';
 
 const CarGrid = ({ blok }) => {
   const cars = blok?.cars || [];
@@ -122,22 +123,23 @@ const CarGrid = ({ blok }) => {
         {/* Left Arrow */}
         <button 
           onClick={prev} 
+          className={styles.arrow}
           style={{
             position: 'absolute',
-            left: '30px',
+            left: '20px',
             top: '50%',
             transform: 'translateY(-50%)',
             zIndex: 30,
             background: 'transparent',
             border: 'none',
             cursor: 'pointer',
-            padding: '12px',
+            padding: '16px',
             transition: 'all 0.3s ease',
           }}
           onMouseEnter={(e) => e.currentTarget.querySelector('svg').style.stroke = '#e60012'}
           onMouseLeave={(e) => e.currentTarget.querySelector('svg').style.stroke = '#666'}
         >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" style={{ transition: 'stroke 0.3s' }}>
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1" style={{ transition: 'stroke 0.3s' }}>
             <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
@@ -246,22 +248,23 @@ const CarGrid = ({ blok }) => {
         {/* Right Arrow */}
         <button 
           onClick={next} 
+          className={styles.arrow}
           style={{
             position: 'absolute',
-            right: '30px',
+            right: '20px',
             top: '50%',
             transform: 'translateY(-50%)',
             zIndex: 30,
             background: 'transparent',
             border: 'none',
             cursor: 'pointer',
-            padding: '12px',
+            padding: '16px',
             transition: 'all 0.3s ease',
           }}
           onMouseEnter={(e) => e.currentTarget.querySelector('svg').style.stroke = '#e60012'}
           onMouseLeave={(e) => e.currentTarget.querySelector('svg').style.stroke = '#666'}
         >
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" style={{ transition: 'stroke 0.3s' }}>
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1" style={{ transition: 'stroke 0.3s' }}>
             <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>

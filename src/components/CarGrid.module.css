@@ -1,0 +1,13 @@
+/* ─── CarGrid Arrows ─── */
+.arrow {
+  display: flex;
+}
+
+/* ══════════════════════════════════════
+   MOBILE ≤ 768px
+══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .arrow {
+    display: none;
+  }
+}
