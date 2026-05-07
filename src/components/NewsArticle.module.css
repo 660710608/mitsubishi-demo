@@ -11,7 +11,7 @@
   --news-muted: #767676;
   --news-light-bg: #f5f5f5;
   --news-border: #e5e5e5;
-  --news-content-max: 760px;
+  --news-content-max: 960px;
   --news-outer-max: 1240px;
   --news-pad-x: 40px;
 }
@@ -23,6 +23,7 @@
   width: 100%;
   box-sizing: border-box;
   padding: 40px var(--news-pad-x) 24px;
+  text-align: center;
 }
 
 .headlineDate {
@@ -38,7 +39,7 @@
   font-weight: 700;
   line-height: 1.3;
   color: var(--news-black);
-  margin: 0;
+  margin: 0 auto;
   max-width: var(--news-content-max);
 }
 
