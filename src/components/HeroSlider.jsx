@@ -9,14 +9,47 @@ const defaultPoster = 'https://www.mitsubishi-motors.co.th/content/dam/mitsubish
 const HeroSlider = ({ blok }) => {
   const slides = blok?.slides || [];
   const [current, setCurrent] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [typedText, setTypedText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
   const videoRef = useRef(null);
   const timerRef = useRef(null);
+  const typingRef = useRef(null);
+
+  const fullText = 'A new power. Pure thrill. Every drive.';
+  const typingSpeed = 80;
+  const deletingSpeed = 40;
+  const pauseBeforeDelete = 3000;
+  const pauseBeforeType = 1000;
 
   const slide = slides.length > 0 ? slides[current] : null;
   const videoSrc = slide?.video?.filename || defaultVideo;
   const imageSrc = slide?.image?.filename;
   const posterSrc = slide?.poster?.filename || imageSrc || defaultPoster;
+
+  // Typing effect
+  useEffect(() => {
+    const type = () => {
+      if (!isDeleting) {
+        if (typedText.length < fullText.length) {
+          setTypedText(fullText.substring(0, typedText.length + 1));
+          typingRef.current = setTimeout(type, typingSpeed);
+        } else {
+          typingRef.current = setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
+        }
+      } else {
+        if (typedText.length > 0) {
+          setTypedText(fullText.substring(0, typedText.length - 1));
+          typingRef.current = setTimeout(type, deletingSpeed);
+        } else {
+          setIsDeleting(false);
+          typingRef.current = setTimeout(type, pauseBeforeType);
+        }
+      }
+    };
+
+    typingRef.current = setTimeout(type, isDeleting ? deletingSpeed : typingSpeed);
+    return () => clearTimeout(typingRef.current);
+  }, [typedText, isDeleting]);
 
   const goTo = (index) => {
     setCurrent((index + slides.length) % slides.length);
@@ -35,16 +68,6 @@ const HeroSlider = ({ blok }) => {
     if (slides.length > 1) startTimer();
     return () => clearInterval(timerRef.current);
   }, [slides.length]);
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-    if (isPlaying) {
-      videoRef.current.pause();
-    } else {
-      videoRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <div
@@ -105,7 +128,7 @@ const HeroSlider = ({ blok }) => {
           <img
             src={slide.logo.filename}
             alt="logo"
-            style={{ width: '100%', maxWidth: '320px' }}
+            style={{ width: '100%', maxWidth: '352px' }}
           />
         )}
 
@@ -127,7 +150,7 @@ const HeroSlider = ({ blok }) => {
 
         {slide?.title && (
           <h1 style={{
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+            fontSize: 'clamp(1.98rem, 4.4vw, 3.3rem)',
             fontWeight: '700',
             margin: '0 0 12px',
             lineHeight: 1.15,
@@ -138,18 +161,29 @@ const HeroSlider = ({ blok }) => {
           </h1>
         )}
 
-        {slide?.subtitle && (
-          <p style={{
-            fontSize: 'clamp(0.9rem, 1.8vw, 1.25rem)',
-            margin: '0 0 24px',
-            opacity: 0.85,
-            lineHeight: 1.5,
-            maxWidth: '480px',
-            fontWeight: '400',
-          }}>
-            {slide.subtitle}
-          </p>
-        )}
+        {/* Typing Effect Subtitle */}
+        <div style={{
+          fontSize: 'clamp(0.99rem, 1.98vw, 1.375rem)',
+          margin: '0 0 24px',
+          opacity: 0.85,
+          lineHeight: 1.5,
+          maxWidth: '480px',
+          fontWeight: '400',
+          minHeight: '1.5em',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          <span>{typedText}</span>
+          <span style={{
+            display: 'inline-block',
+            width: '2px',
+            height: '1em',
+            background: '#e60012',
+            marginLeft: '4px',
+            animation: 'blink 1s infinite',
+          }} />
+        </div>
 
         {slide?.button_label && (
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', pointerEvents: 'auto' }}>
@@ -198,34 +232,6 @@ const HeroSlider = ({ blok }) => {
           </div>
         )}
       </div>
-
-      {/* PLAY / PAUSE BUTTON */}
-      <button
-        onClick={togglePlay}
-        aria-label={isPlaying ? 'Pause' : 'Play'}
-        style={{
-          position: 'absolute',
-          bottom: '80px',
-          right: '16px',
-          width: '44px',
-          height: '44px',
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.15)',
-          border: '1px solid rgba(255,255,255,0.4)',
-          color: '#fff',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '16px',
-          transition: 'background 0.2s',
-          zIndex: 10,
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.3)'}
-        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.15)'}
-      >
-        {isPlaying ? '⏸' : '▶'}
-      </button>
 
       {/* SLIDE INDICATORS */}
       {slides.length > 1 && (
