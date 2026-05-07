@@ -11,7 +11,7 @@
   --news-muted: #767676;
   --news-light-bg: #f5f5f5;
   --news-border: #e5e5e5;
-  --news-content-max: 760px;
+  --news-content-max: 900px;
   --news-outer-max: 1240px;
   --news-pad-x: 40px;
 }
@@ -21,6 +21,8 @@
   font-family: var(--news-font);
   background: #fff;
   width: 100%;
+  max-width: 100%;
+  margin: auto;
   box-sizing: border-box;
   padding: 40px var(--news-pad-x) 24px;
 }
@@ -34,24 +36,28 @@
 }
 
 .headlineText {
-  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-size: clamp(4rem, 5vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.3;
+  line-height: 1.5;
   color: var(--news-black);
-  margin: 0;
-  max-width: var(--news-content-max);
+  margin: 0 0 16px;
+  text-align: center;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
 /* ─── Block 2: NewsFeaturedImage ─── */
 .imageContainer {
   width: 100%;
-  background: #000;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #ffffff;
   box-sizing: border-box;
 }
 
 .featuredImage {
   width: 100%;
-  max-height: 720px;
+  height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
@@ -72,7 +78,9 @@
 .bodyContainer {
   font-family: var(--news-font);
   background: #fff;
-  padding: 32px var(--news-pad-x) 40px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 48px 60px 48px;
   box-sizing: border-box;
 }
 
@@ -83,10 +91,12 @@
   padding: 40px var(--news-pad-x);
   box-sizing: border-box;
   border-top: 1px solid var(--news-border);
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .aboutTitle {
-  font-size: 0.85rem;
+  font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -96,10 +106,11 @@
 
 /* ─── Shared: Rich Text Rendered HTML ─── */
 .richText {
-  font-size: 1rem;
-  line-height: 1.9;
+  font-size: 1.25rem;
+  line-height: 2;
   color: var(--news-body-text);
-  max-width: var(--news-content-max);
+  max-width: 100%;
+  margin: 48px 60px 48px;
 }
 
 .richText p {
@@ -184,34 +195,25 @@
   padding: 40px var(--news-pad-x) 48px;
   box-sizing: border-box;
   border-top: 1px solid var(--news-border);
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .contactTitle {
-  font-size: 0.85rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--news-black);
-  margin: 0 0 20px;
+  margin: 24px 80px 20px;
 }
 
 .contactTable {
   border-collapse: collapse;
-  width: 100%;
-  max-width: 540px;
-  font-size: 0.85rem;
-}
-
-.contactTh {
-  text-align: left;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--news-muted);
-  padding: 8px 12px;
-  border-bottom: 2px solid var(--news-border);
-  background: var(--news-light-bg);
+  width: 60%;
+  max-width: 50%;
+  font-size: 1.5rem;
+  margin: 0 180px;
 }
 
 .contactRow:hover td {
