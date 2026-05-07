@@ -1,6 +1,7 @@
 import { getStoryblokApi, getStoryVersion } from '@/lib/storyblok';
 import { notFound } from 'next/navigation';
 import NewsArticleClient from './NewsArticleClient';
+import StoryblokBridgeLoader from '@/components/StoryblokBridgeLoader';
 
 async function fetchNewsStory(slug, version) {
 	const storyblokApi = getStoryblokApi();
@@ -48,5 +49,10 @@ export default async function NewsArticlePage({ params, searchParams }) {
 
 	if (!story) return notFound();
 
-	return <NewsArticleClient story={story} />;
+	return (
+		<>
+			<NewsArticleClient story={story} />
+			<StoryblokBridgeLoader storyId={story.id} />
+		</>
+	);
 }

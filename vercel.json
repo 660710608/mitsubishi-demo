@@ -11,7 +11,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors 'self' https://app.storyblok.com https://*.storyblok.com"
+          "value": "frame-ancestors 'self' https://*.storyblok.com http://localhost:* https://localhost:*"
         },
         {
           "key": "Access-Control-Allow-Origin",

@@ -1,6 +1,7 @@
 import { StoryblokStory } from '@storyblok/react/rsc';
 import { getStoryblokApi, getStoryVersion } from '@/lib/storyblok';
 import { notFound } from 'next/navigation';
+import StoryblokBridgeLoader from '@/components/StoryblokBridgeLoader';
 
 async function fetchStory(slug, version) {
 	const storyblokApi = getStoryblokApi();
@@ -28,5 +29,10 @@ export default async function Page({ params, searchParams }) {
 
 	if (!data?.story) return notFound();
 
-	return <StoryblokStory story={data.story} />;
+	return (
+		<>
+			<StoryblokStory story={data.story} />
+			<StoryblokBridgeLoader storyId={data.story.id} />
+		</>
+	);
 }
