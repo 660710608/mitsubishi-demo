@@ -1,7 +1,7 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Sections.module.css';
 
 // ─────────────────────────────────────────
@@ -180,12 +180,40 @@ export const JoinUsBanner = ({ blok }) => {
 };
 
 // ─────────────────────────────────────────
-// Section 8: News Section
+// Section 8: News Section - Fetches from Storyblok
 // ─────────────────────────────────────────
 export const NewsSection = ({ blok }) => {
-	console.log('blok:', blok);
-	const news = blok?.News_items || [];
-	const [hovered, setHovered] = useState(null);
+	const [news, setNews] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchNews = async () => {
+			try {
+				const token = process.env.NEXT_PUBLIC_STORYBLOK_TOKEN || 'xCxGft29IjcKPCRQ65UR6Att';
+				const response = await fetch(
+					`https://api.storyblok.com/v2/cdn/stories?starts_with=news/&per_page=5&sort_by=created_at:desc&token=${token}&version=draft`
+				);
+				const data = await response.json();
+				const articles = data.stories
+					.filter(story => !story.is_folder)
+					.map(story => ({
+						_uid: story.uuid,
+						title: story.name,
+						date: story.content?.date || new Date(story.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+						image: story.content?.banner || { filename: '/placeholder-news.jpg' },
+						link: `/${story.full_slug}`,
+						headline: story.content?.headline
+					}));
+				setNews(articles);
+			} catch (error) {
+				console.error('Error fetching news:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchNews();
+	}, []);
 
 	return (
 		<div {...storyblokEditable(blok)} className={styles.newsWrapper}>
@@ -205,33 +233,25 @@ export const NewsSection = ({ blok }) => {
 
 					{/* News Grid */}
 					<div className={styles.newsGrid}>
-						{news.map((item, i) => {
-							let href = '#';
-							if (item.link) {
-								if (typeof item.link === 'string') {
-									href = item.link;
-								} else if (item.link.cached_url) {
-									const slug = item.link.cached_url.replace(/^news\//, '');
-									href = `/news/${slug}`;
-								} else if (item.link.url) {
-									href = `/news/${item.link.url}`;
-								}
-							}
-							return (
-								<a key={item._uid || i} href={href} className={styles.newsCard}>
+						{loading ? (
+							// Loading skeleton
+							Array.from({ length: 5 }).map((_, i) => (
+								<div key={i} className={styles.newsCard}>
+									<div className={styles.newsThumb}>
+										<div style={{ width: '100%', height: '100%', background: '#eee' }} />
+									</div>
+									<div className={styles.newsInfo}>
+										<div style={{ width: '60px', height: '12px', background: '#eee', marginBottom: '8px' }} />
+										<div style={{ width: '100%', height: '16px', background: '#eee' }} />
+									</div>
+								</div>
+							))
+						) : news.length > 0 ? (
+							news.map((item, i) => (
+								<a key={item._uid || i} href={item.link} className={styles.newsCard}>
 									{/* Thumbnail */}
 									<div className={styles.newsThumb}>
-										{item.image?.filename ? (
-											<img src={item.image.filename} alt={item.title || ''} />
-										) : (
-											<div
-												style={{
-													width: '100%',
-													height: '100%',
-													background: '#ddd',
-												}}
-											/>
-										)}
+										<img src={item.image?.filename || '/placeholder-news.jpg'} alt={item.title || ''} />
 									</div>
 
 									{/* Info */}
@@ -239,12 +259,43 @@ export const NewsSection = ({ blok }) => {
 										{item.date && (
 											<p className={styles.newsDate}>{item.date}</p>
 										)}
-										<h3 className={styles.newsHeading}>{item.title}</h3>
+										<h3 className={styles.newsHeading}>{item.headline || item.title}</h3>
 										<span className={styles.readMore}>Read More</span>
 									</div>
 								</a>
-							);
-						})}
+							))
+						) : (
+							// Fallback when no news
+							blok?.News_items?.map((item, i) => {
+								let href = '#';
+								if (item.link) {
+									if (typeof item.link === 'string') {
+										href = item.link;
+									} else if (item.link.cached_url) {
+										const slug = item.link.cached_url.replace(/^news\//, '');
+										href = `/news/${slug}`;
+									}
+								}
+								return (
+									<a key={item._uid || i} href={href} className={styles.newsCard}>
+										<div className={styles.newsThumb}>
+											{item.image?.filename ? (
+												<img src={item.image.filename} alt={item.title || ''} />
+											) : (
+												<div style={{ width: '100%', height: '100%', background: '#ddd' }} />
+											)}
+										</div>
+										<div className={styles.newsInfo}>
+											{item.date && (
+												<p className={styles.newsDate}>{item.date}</p>
+											)}
+											<h3 className={styles.newsHeading}>{item.title}</h3>
+											<span className={styles.readMore}>Read More</span>
+										</div>
+									</a>
+								);
+							})
+						)}
 					</div>
 				</div>
 			</div>
