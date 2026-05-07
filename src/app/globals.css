@@ -136,16 +136,6 @@
         font-weight: 600
     }
 
-    article {
-        max-width: 65ch;
-        margin: 0 auto;
-
-        & p+p {
-            margin-block-start: 0.5lh
-        }
-    }
-}
-
 html,
 body {
     width: 100% !important;

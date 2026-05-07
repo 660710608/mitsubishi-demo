@@ -120,9 +120,12 @@
   color: #767676;
   padding: 10px 0;
   margin: 0;
-  max-width: 80%;
+  max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
 }
 
 /* Body Container */
@@ -133,13 +136,15 @@
   box-sizing: border-box;
 }
 
-/* Body - 80% centered */
+/* Body - match breadcrumb width */
 .body {
-  max-width: 80%;
+  max-width: 1240px;
+  padding: 0 40px;
   margin: 0 auto;
   font-size: clamp(0.95rem, 1.2vw, 1.05rem);
   line-height: 1.8;
   color: #3c3c3c;
+  box-sizing: border-box;
 }
 
 .body p {
@@ -214,8 +219,10 @@
 }
 
 .backLinkInner {
-  max-width: 80%;
+  max-width: 1240px;
+  padding: 0 40px;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .backButton {
@@ -266,7 +273,7 @@
   }
 
   .body {
-    max-width: 90%;
+    padding: 0 16px;
     font-size: 0.95rem;
   }
 
@@ -275,10 +282,12 @@
   }
 
   .backLinkInner {
-    max-width: 90%;
+    padding: 0 16px;
   }
 
   .imageCaption {
-    max-width: 90%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
