@@ -1,65 +1,93 @@
 'use client';
 
 import { storyblokEditable } from '@storyblok/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const CarGrid = ({ blok }) => {
   const cars = blok?.cars || [];
-  const [visibleCount, setVisibleCount] = useState(3);
-  const [isMobile, setIsMobile] = useState(false);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [transitioning, setTransitioning] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const intervalRef = useRef(null);
 
+  // Mark as mounted to avoid hydration mismatch
   useEffect(() => {
-    const update = () => {
-      setVisibleCount(window.innerWidth <= 768 ? 1 : 3);
-      setIsMobile(window.innerWidth <= 768);
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    setMounted(true);
   }, []);
+
+  // Auto slide every 6 seconds
+  useEffect(() => {
+    if (cars.length > 1 && !isHovered && mounted) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % cars.length);
+      }, 6000);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [cars.length, isHovered, mounted]);
 
   if (cars.length === 0) return null;
 
-  const cardWidth = 100 / visibleCount;
-  const loopCars = [...cars, ...cars, ...cars];
-
   const next = () => {
-    setTransitioning(true);
-    setCurrentIndex((p) => {
-      const next = p + 1;
-      if (next >= cars.length * 2) {
-        setTimeout(() => {
-          setTransitioning(false);
-          setCurrentIndex(cars.length);
-        }, 400);
-      }
-      return next;
-    });
+    setCurrentIndex((prev) => (prev + 1) % cars.length);
   };
 
   const prev = () => {
-    setTransitioning(true);
-    setCurrentIndex((p) => {
-      const next = p - 1;
-      if (next < cars.length) {
-        setTimeout(() => {
-          setTransitioning(false);
-          setCurrentIndex(cars.length * 2 - visibleCount);
-        }, 400);
-      }
-      return next;
-    });
+    setCurrentIndex((prev) => (prev - 1 + cars.length) % cars.length);
+  };
+
+  const getCardStyle = (index) => {
+    const total = cars.length;
+    let diff = index - currentIndex;
+    
+    // Handle loop - find shortest path
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+    
+    const absDiff = Math.abs(diff);
+    
+    let transform = '';
+    let opacity = 1;
+    let zIndex = 10;
+    let filter = 'none';
+
+    if (diff === 0) {
+      // Center - Extra big
+      transform = 'translateX(0) scale(1.38) rotateY(0deg)';
+      zIndex = 10;
+      opacity = 1;
+      filter = 'none';
+    } else if (absDiff === 1) {
+      // Adjacent - with gap
+      const direction = diff > 0 ? 1 : -1;
+      transform = `translateX(${direction * 340}px) scale(0.85) rotateY(${direction * -15}deg)`;
+      zIndex = 5;
+      opacity = 0.6;
+      filter = 'blur(1px)';
+    } else if (absDiff === 2) {
+      // Second adjacent
+      const direction = diff > 0 ? 1 : -1;
+      transform = `translateX(${direction * 560}px) scale(0.7) rotateY(${direction * -28}deg)`;
+      zIndex = 2;
+      opacity = 0.35;
+      filter = 'blur(3px)';
+    } else {
+      // Hidden
+      const direction = diff > 0 ? 1 : -1;
+      transform = `translateX(${direction * 750}px) scale(0.55) rotateY(${direction * -40}deg)`;
+      zIndex = 0;
+      opacity = 0;
+      filter = 'blur(5px)';
+    }
+
+    return { transform, opacity, zIndex, filter };
   };
 
   return (
     <div
       {...storyblokEditable(blok)}
       style={{
-        background: '#f2f2f2',
-        padding: '48px 0 40px',
+        background: '#fff',
+        padding: '24px 0 20px',
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
         overflow: 'hidden',
       }}
@@ -67,128 +95,213 @@ const CarGrid = ({ blok }) => {
       {blok?.title && (
         <h2 style={{
           textAlign: 'center',
-          fontSize: '0.75rem',
+          fontSize: '0.85rem',
           fontWeight: '700',
-          letterSpacing: '4px',
+          letterSpacing: '3px',
           textTransform: 'uppercase',
-          marginBottom: '36px',
+          marginBottom: '32px',
           color: '#111',
         }}>
           {blok.title}
         </h2>
       )}
 
-      <div style={{ position: 'relative' }}>
-        {/* Prev Arrow */}
-        <button onClick={prev} style={arrowStyle('left')}
-          onMouseEnter={(e) => e.currentTarget.style.borderColor = '#e60012'}
-          onMouseLeave={(e) => e.currentTarget.style.borderColor = '#ddd'}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="1.5">
-            <polyline points="15 18 9 12 15 6" />
+      <div 
+        style={{ 
+          position: 'relative', 
+          height: '340px',
+          perspective: '1200px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'transparent',
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Left Arrow */}
+        <button 
+          onClick={prev} 
+          style={{
+            position: 'absolute',
+            left: '30px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 30,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '12px',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => e.currentTarget.querySelector('svg').style.stroke = '#e60012'}
+          onMouseLeave={(e) => e.currentTarget.querySelector('svg').style.stroke = '#666'}
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" style={{ transition: 'stroke 0.3s' }}>
+            <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
 
-        {/* Track */}
-        <div style={{ overflow: 'hidden', margin: '0 60px' }}>
-          <div style={{
-            display: 'flex',
-            transition: transitioning ? 'transform 0.4s ease' : 'none',
-            transform: `translateX(-${currentIndex * cardWidth}%)`,
-          }}>
-            {loopCars.map((car, i) => (
-              <div key={`${i}-${car._uid}`} style={{ flex: `0 0 ${cardWidth}%`, padding: '0 8px', boxSizing: 'border-box' }}>
+        {/* Cards */}
+        <div style={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
+          {cars.map((car, index) => {
+            const cardStyle = getCardStyle(index);
+            const isCenter = index === currentIndex;
+            
+            return (
+              <div
+                key={`${index}-${car._uid}`}
+                style={{
+                  position: 'absolute',
+                  width: '360px',
+                  height: '300px',
+                  transition: 'all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transform: cardStyle.transform,
+                  opacity: cardStyle.opacity,
+                  zIndex: cardStyle.zIndex,
+                  filter: cardStyle.filter,
+                  transformStyle: 'preserve-3d',
+                }}
+              >
                 <a
                   href={car.link || '#'}
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
                   style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+                    display: 'block',
+                    width: '100%',
+                    height: '100%',
                     textDecoration: 'none',
-                    color: '#111',
+                    color: '#fff',
                     position: 'relative',
                     overflow: 'hidden',
-                    background: '#fff',
                   }}
                 >
-                  {/* Image */}
-                  <div style={{
-                    height: isMobile ? '220px' : '480px',
-                    padding: isMobile ? '24px' : '32px 24px 120px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    overflow: 'hidden',
-                  }}>
-                    {car.image?.filename ? (
-                      <img
-                        src={car.image.filename}
-                        alt={car.name || ''}
-                        style={{
-                          width: 'auto',
-                          objectFit: 'contain',
-                          transition: 'transform 0.3s',
-                          transform: hoveredIndex === i ? 'scale(1.06)' : 'scale(1)',
-                        }}
-                      />
-                    ) : (
-                      <div style={{ color: '#ccc', fontSize: '0.8rem' }}>No image</div>
-                    )}
-                  </div>
+                  {/* Car Image - Full */}
+                  {car.image?.filename ? (
+                    <img
+                      src={car.image.filename}
+                      alt={car.name || ''}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'contain',
+                        padding: '12px',
+                        boxSizing: 'border-box',
+                      }}
+                    />
+                  ) : (
+                    <div style={{ 
+                      width: '100%', 
+                      height: '100%', 
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: '#f5f5f5',
+                      color: '#ccc',
+                    }}>No image</div>
+                  )}
 
-                  {/* Info — absolute กลางล่าง ทับบนรูป */}
+                  {/* Text Overlay - Inside Image */}
                   <div style={{
                     position: 'absolute',
-                    bottom: '24px',
+                    bottom: 0,
                     left: 0,
                     right: 0,
+                    padding: '12px 16px',
                     textAlign: 'center',
-                    padding: '0 16px',
                   }}>
                     <h3 style={{
-                      fontSize: '1rem',
+                      fontSize: '1.1rem',
                       fontWeight: '700',
-                      letterSpacing: '1.5px',
+                      letterSpacing: '2px',
                       textTransform: 'uppercase',
-                      color: hoveredIndex === i ? '#e60012' : '#111',
-                      transition: 'color 0.2s ease',
+                      color: '#111',
+                      margin: '0 0 4px',
                     }}>
                       {car.name}
                     </h3>
                     {car.price && (
-                      <p style={{ fontSize: '0.75rem', color: '#555', margin: 0 }}>
+                      <p style={{ 
+                        fontSize: '0.75rem', 
+                        color: '#555', 
+                        margin: 0,
+                        letterSpacing: '0.5px',
+                      }}>
                         {car.price}
                       </p>
                     )}
                   </div>
                 </a>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        {/* Next Arrow */}
-        <button onClick={next} style={arrowStyle('right')}
-          onMouseEnter={(e) => e.currentTarget.style.borderColor = '#e60012'}
-          onMouseLeave={(e) => e.currentTarget.style.borderColor = '#ddd'}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" strokeWidth="1.5">
-            <polyline points="9 18 15 12 9 6" />
+        {/* Right Arrow */}
+        <button 
+          onClick={next} 
+          style={{
+            position: 'absolute',
+            right: '30px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 30,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '12px',
+            transition: 'all 0.3s ease',
+          }}
+          onMouseEnter={(e) => e.currentTarget.querySelector('svg').style.stroke = '#e60012'}
+          onMouseLeave={(e) => e.currentTarget.querySelector('svg').style.stroke = '#666'}
+        >
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#666" strokeWidth="1.5" style={{ transition: 'stroke 0.3s' }}>
+            <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
       </div>
 
+      {/* Dots */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '8px',
+        paddingTop: '20px',
+        marginTop: '20px',
+      }}>
+        {cars.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentIndex(index)}
+            style={{
+              width: index === currentIndex ? '24px' : '8px',
+              height: '3px',
+              background: index === currentIndex ? '#e60012' : '#ccc',
+              border: 'none',
+              borderRadius: '2px',
+              cursor: 'pointer',
+              transition: 'all 0.4s ease',
+              padding: 0,
+            }}
+          />
+        ))}
+      </div>
+
       {/* View All */}
       {blok?.view_all_link && (
-        <div style={{ textAlign: 'center', marginTop: '28px' }}>
+        <div style={{ textAlign: 'center', marginTop: '24px' }}>
           <a href={blok.view_all_link} style={{
-            fontSize: '0.75rem', fontWeight: '700', letterSpacing: '2px',
-            textTransform: 'uppercase', color: '#111', textDecoration: 'none',
-            borderBottom: '1px solid #111', paddingBottom: '2px',
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#e60012'; e.currentTarget.style.borderColor = '#e60012'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#111'; e.currentTarget.style.borderColor = '#111'; }}
-          >
+            fontSize: '0.7rem', fontWeight: '600', letterSpacing: '2px',
+            textTransform: 'uppercase', color: '#e60012', textDecoration: 'none',
+            borderBottom: '1px solid #e60012', paddingBottom: '2px',
+            transition: 'all 0.3s',
+          }}>
             {blok.view_all_label || 'View All Models'} →
           </a>
         </div>
@@ -196,20 +309,5 @@ const CarGrid = ({ blok }) => {
     </div>
   );
 };
-
-const arrowStyle = (side) => ({
-  position: 'absolute',
-  [side]: '16px',
-  top: '50%',
-  transform: 'translateY(-60%)',
-  zIndex: 10,
-  background: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  padding: '8px',
-});
 
 export default CarGrid;

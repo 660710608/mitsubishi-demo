@@ -1,14 +1,31 @@
+/* ─── Banner Wrapper ─── */
+.bannerWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.bannerInner {
+  width: 100%;
+  max-width: 80%;
+}
+
 /* ─── DealerBanner ─── */
 .dealerContainer {
   display: flex;
   flex-direction: row;
   align-items: stretch;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  background-color: #fff;
+  background-color: #f8f8f8;
   width: 100%;
-  min-height: 600px;
-  box-sizing: border-box;
+  min-height: unset;
+  height: auto;
+  max-height: none;
+  border-radius: 0;
   overflow: hidden;
+  box-shadow: none;
 }
 
 .dealerContent {
@@ -17,7 +34,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px 72px;
+  padding: 48px 56px;
   background: #fff;
   box-sizing: border-box;
 }
@@ -26,7 +43,7 @@
   flex: 0 0 50%;
   position: relative;
   overflow: hidden;
-  min-height: 600px;
+  aspect-ratio: 16 / 9;
   box-sizing: border-box;
   align-self: stretch;
 }
@@ -37,18 +54,21 @@
   flex-direction: row;
   align-items: stretch;
   font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: #fff;
+  background: #f8f8f8;
   width: 100%;
-  min-height: 600px;
-  box-sizing: border-box;
+  min-height: unset;
+  height: auto;
+  max-height: none;
+  border-radius: 0;
   overflow: hidden;
+  box-shadow: none;
 }
 
 .serviceImage {
   flex: 0 0 50%;
   position: relative;
   overflow: hidden;
-  min-height: 600px;
+  aspect-ratio: 1 / 1;
   min-width: 0;
   box-sizing: border-box;
   align-self: stretch;
@@ -59,10 +79,83 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 60px 72px;
+  padding: 48px 56px;
   background: #fff;
   min-width: 0;
   box-sizing: border-box;
+}
+
+/* ─── AirbagBanner ─── */
+.airbagContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #fff;
+  width: 100%;
+  min-height: unset;
+  height: auto;
+  max-height: none;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.airbagContent {
+  flex: 0 0 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 56px;
+  background: #f8f8f8;
+  box-sizing: border-box;
+}
+
+.airbagImage {
+  flex: 0 0 50%;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  box-sizing: border-box;
+  align-self: stretch;
+}
+
+/* ─── JoinUsBanner ─── */
+.joinUsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f8f8f8;
+  width: 100%;
+  min-height: 600px;
+  height: 80vh;
+  max-height: 700px;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+}
+
+.joinUsContent {
+  flex: 0 0 50%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 56px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.joinUsImage {
+  flex: 0 0 50%;
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  box-sizing: border-box;
+  align-self: stretch;
 }
 
 /* ─── Shared ─── */
@@ -136,19 +229,36 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center;
   transition: transform 0.5s ease;
 }
 
 .dealerImage:hover .coverImg,
-.serviceImage:hover .coverImg {
+.serviceImage:hover .coverImg,
+.airbagImage:hover .coverImg {
   transform: scale(1.04);
 }
 
 /* ─── NewsSection ─── */
+.newsWrapper {
+  display: block;
+  width: 100%;
+  padding: 20px 0;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.newsInner {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 60px;
+  box-sizing: border-box;
+}
+
 .newsContainer {
-  background: #fff;
-  padding: 80px 40px;
+  background: #ffffff;
+  padding: 0;
+  border-radius: 0;
   font-family: 'Helvetica Neue', Arial, sans-serif;
   width: 100%;
   box-sizing: border-box;
@@ -158,94 +268,169 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e60012;
 }
 
 .newsTitle {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 3px;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
   margin: 0;
   color: #111;
+  position: relative;
+}
+
+.newsTitle::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -22px;
+  width: 60px;
+  height: 3px;
+  background: #e60012;
 }
 
 .newsViewAll {
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #e60012;
   text-decoration: none;
-  border-bottom: 1px solid #e60012;
-  padding-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.newsViewAll:hover {
+  color: #b3000e;
+  gap: 12px;
+}
+
+.newsViewAll::after {
+  content: '→';
+  transition: transform 0.2s;
+}
+
+.newsViewAll:hover::after {
+  transform: translateX(4px);
 }
 
 .newsGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  ;
   gap: 24px;
 }
 
 .newsCard {
   text-decoration: none;
   color: #111;
-  display: block;
-  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: none;
+  border: 1px solid #eee;
 }
 
 .newsCard:hover {
   transform: translateY(-4px);
+  box-shadow: none;
+  border-color: #ddd;
 }
 
 .newsThumb {
   overflow: hidden;
-  background: #f0f0f0;
-  aspect-ratio: 4/3;
+  background: #f5f5f5;
+  aspect-ratio: 16/10;
+  position: relative;
+  border-radius: 0;
+}
+
+.newsThumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.newsCard:hover .newsThumb::after {
+  opacity: 1;
 }
 
 .newsThumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
 
 .newsCard:hover .newsThumb img {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 .newsInfo {
-  padding: 16px 0;
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .newsDate {
-  font-size: 0.75rem;
-  color: #575757;
+  font-size: 0.7rem;
+  color: #e60012;
   margin: 0 0 8px;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .newsHeading {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  margin: 0 0 8px;
-  line-height: 1.5;
+  margin: 0 0 12px;
+  line-height: 1.45;
   color: #111;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
 }
 
 .readMore {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  color: transparent;
+  color: #e60012;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.readMore::after {
+  content: '→';
+  transition: transform 0.3s;
 }
 
 .newsCard:hover .readMore {
-  color: #e60012;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.newsCard:hover .readMore::after {
+  transform: translateX(4px);
 }
 
 /* ══════════════════════════════════════
@@ -253,58 +438,82 @@
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
 
+  .bannerWrapper {
+    padding: 0 10px;
+  }
+
   .dealerContainer,
-  .serviceContainer {
+  .serviceContainer,
+  .airbagContainer,
+  .joinUsContainer {
     flex-direction: column;
     min-height: unset;
+    height: auto;
   }
 
   .dealerContent,
-  .serviceContent {
+  .serviceContent,
+  .airbagContent,
+  .joinUsContent {
     flex: 0 0 auto;
     width: 100%;
     max-width: 100%;
-    padding: 32px 20px;
+    padding: 24px 20px;
     order: 2;
     box-sizing: border-box;
   }
 
-  .dealerImage,
-  .serviceImage {
+  .dealerImage {
     flex: 0 0 auto;
     width: 100%;
     max-width: 100%;
-    min-height: 260px;
-    height: 60vw;
-    /* สูงตามความกว้างจอ */
+    aspect-ratio: 16 / 9;
+    order: 1;
+    box-sizing: border-box;
+  }
+
+  .serviceImage,
+  .airbagImage,
+  .joinUsImage {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
     order: 1;
     box-sizing: border-box;
   }
 
   .heading,
   .headingService {
-    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    font-size: clamp(1.4rem, 5vw, 2rem);
   }
 
   .description,
   .descriptionService {
-    font-size: 0.95rem;
-    margin-bottom: 28px;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
     max-width: 100%;
   }
 
   .btn {
-    padding: 12px 28px;
-    font-size: 0.85rem;
+    padding: 10px 24px;
+    font-size: 0.8rem;
+  }
+
+  .newsWrapper {
+    padding: 10px 0;
+  }
+
+  .newsInner {
+    padding: 0 16px;
   }
 
   .newsContainer {
-    padding: 40px 16px;
+    padding: 0;
   }
 
   .newsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }

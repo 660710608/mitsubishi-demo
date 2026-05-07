@@ -8,7 +8,7 @@ import HeroSlider from '@/components/HeroSlider';
 import CarGrid from '@/components/CarGrid'
 import HighlightBanner from '@/components/HighlightBanner'
 import FeatureColumns from '@/components/FeatureColumns';
-import { DealerBanner, ServiceBanner, NewsSection } from '@/components/Sections'
+import { DealerBanner, ServiceBanner, AirbagBanner, JoinUsBanner, NewsSection } from '@/components/Sections'
 import {
 	NewsHeadline,
 	NewsFeaturedImage,
@@ -33,6 +33,8 @@ export const getStoryblokApi = storyblokInit({
 		feature_columns: FeatureColumns,
 		DealerBanner: DealerBanner,
 		ServiceBanner: ServiceBanner,
+		AirbagBanner: AirbagBanner,
+		JoinUsBanner: JoinUsBanner,
 		NewsSection: NewsSection,
 		news_headline: NewsHeadline,
 		news_featured_image: NewsFeaturedImage,

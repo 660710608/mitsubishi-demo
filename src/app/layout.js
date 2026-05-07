@@ -14,14 +14,14 @@ export const viewport = {
 export default function RootLayout({ children }) {
 	return (
 		<StoryblokProvider>
-			<html lang="en" style={{ margin: 0, padding: 0, width: '100%' }}>
+			<html lang="en" style={{ margin: 0, padding: 0, width: '100%' }} suppressHydrationWarning>
 				<body style={{
 					margin: 0,
 					padding: 0,
 					width: '100%',
 					maxWidth: 'none',
 					overflowX: 'hidden',
-				}}>
+				}} suppressHydrationWarning>
 					<main style={{
 						display: 'block',
 						padding: 0,
