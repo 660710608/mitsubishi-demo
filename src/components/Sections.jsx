@@ -137,7 +137,13 @@ export const NewsSection = ({ blok }) => {
         {news.map((item, i) => (
           <a
             key={item._uid || i}
-            href={item.link || '#'}
+            href={
+              !item.link
+                ? '#'
+                : typeof item.link === 'string'
+                ? item.link
+                : `/${item.link.cached_url || item.link.url || ''}`
+            }
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
             className={styles.newsCard}
