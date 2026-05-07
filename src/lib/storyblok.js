@@ -10,12 +10,11 @@ import HighlightBanner from '@/components/HighlightBanner'
 import FeatureColumns from '@/components/FeatureColumns';
 import { DealerBanner, ServiceBanner, NewsSection } from '@/components/Sections'
 import {
-	NewsArticleHero,
-	NewsArticleContent,
-	NewsArticleQuote,
-	NewsVehicleShowcase,
-	NewsCsrHighlights,
-	NewsHospitalList,
+	NewsHeadline,
+	NewsFeaturedImage,
+	NewsBody,
+	NewsAbout,
+	NewsContact,
 } from '@/components/NewsArticle'
 
 
@@ -35,12 +34,11 @@ export const getStoryblokApi = storyblokInit({
 		DealerBanner: DealerBanner,
 		ServiceBanner: ServiceBanner,
 		NewsSection: NewsSection,
-		news_article_hero: NewsArticleHero,
-		news_article_content: NewsArticleContent,
-		news_article_quote: NewsArticleQuote,
-		news_vehicle_showcase: NewsVehicleShowcase,
-		news_csr_highlights: NewsCsrHighlights,
-		news_hospital_list: NewsHospitalList,
+		news_headline: NewsHeadline,
+		news_featured_image: NewsFeaturedImage,
+		news_body: NewsBody,
+		news_about: NewsAbout,
+		news_contact: NewsContact,
 	},
 	apiOptions: {
 		/** Set the correct region for your space. Learn more: https://www.storyblok.com/docs/packages/storyblok-js#example-region-parameter */

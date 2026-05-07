@@ -1,307 +1,236 @@
-/* ─── NewsArticleHero ─── */
-.heroContainer {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+/* ─── Shared typography base ─── */
+:root {
+  --news-font: 'Helvetica Neue', Arial, sans-serif;
+  --news-red: #e60012;
+  --news-text: #111;
+  --news-muted: #666;
+  --news-max: 800px;
+  --news-pad-x: 80px;
+}
+
+/* ─── Block 1: NewsHeadline ─── */
+.headlineContainer {
+  font-family: var(--news-font);
   background: #fff;
-  width: 100%;
+  padding: 48px var(--news-pad-x) 32px;
+  max-width: calc(var(--news-max) + var(--news-pad-x) * 2);
   box-sizing: border-box;
 }
 
-.breadcrumb {
-  font-size: 0.75rem;
-  color: #888;
-  padding: 16px 80px;
-  letter-spacing: 1px;
-}
-
-.heroContent {
-  padding: 48px 80px 40px;
-  max-width: 960px;
-  box-sizing: border-box;
-}
-
-.heroDate {
-  font-size: 0.8rem;
-  color: #888;
-  margin: 0 0 16px;
-  letter-spacing: 1px;
+.headlineDate {
+  font-size: 0.78rem;
+  color: var(--news-muted);
+  letter-spacing: 1.5px;
   text-transform: uppercase;
+  margin: 0 0 14px;
 }
 
-.heroHeadline {
-  font-size: clamp(1.6rem, 3vw, 2.8rem);
+.headlineText {
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
   font-weight: 800;
-  line-height: 1.15;
-  margin: 0 0 20px;
-  color: #111;
-}
-
-.heroSubheading {
-  font-size: 1rem;
-  color: #555;
-  line-height: 1.65;
+  line-height: 1.2;
+  color: var(--news-text);
   margin: 0;
-  font-weight: 400;
 }
 
-.heroImageWrapper {
+/* ─── Block 2: NewsFeaturedImage ─── */
+.imageContainer {
   width: 100%;
-  overflow: hidden;
-  max-height: 560px;
+  background: #f0f0f0;
 }
 
-.heroImage {
+.featuredImage {
   width: 100%;
-  height: 100%;
   max-height: 560px;
   object-fit: cover;
   object-position: center;
   display: block;
 }
 
-/* ─── NewsArticleContent ─── */
-.contentContainer {
-  padding: 32px 80px;
-  max-width: 960px;
-  box-sizing: border-box;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+.imageCaption {
+  font-family: var(--news-font);
+  font-size: 0.75rem;
+  color: var(--news-muted);
+  padding: 10px var(--news-pad-x);
+  margin: 0;
   background: #fff;
+  letter-spacing: 0.5px;
 }
 
-.contentText {
+/* ─── Block 3: NewsBody + Block 4: NewsAbout — shared rich text ─── */
+.bodyContainer {
+  font-family: var(--news-font);
+  background: #fff;
+  padding: 40px var(--news-pad-x);
+  max-width: calc(var(--news-max) + var(--news-pad-x) * 2);
+  box-sizing: border-box;
+}
+
+.aboutContainer {
+  font-family: var(--news-font);
+  background: #f7f7f7;
+  padding: 48px var(--news-pad-x);
+  box-sizing: border-box;
+}
+
+.aboutTitle {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--news-text);
+  margin: 0 0 24px;
+}
+
+/* Rich text rendered HTML styles */
+.richText {
   font-size: 0.95rem;
   line-height: 1.85;
   color: #333;
-  margin: 0;
-  font-weight: 400;
 }
 
-/* ─── NewsArticleQuote ─── */
-.quoteContainer {
-  padding: 40px 80px;
+.richText p {
+  margin: 0 0 1.2em;
+}
+
+.richText h2 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--news-text);
+  margin: 1.6em 0 0.6em;
+  line-height: 1.3;
+}
+
+.richText h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--news-text);
+  margin: 1.4em 0 0.5em;
+}
+
+.richText blockquote {
+  border-left: 4px solid var(--news-red);
+  margin: 1.5em 0;
+  padding: 16px 24px;
   background: #f7f7f7;
-  border-left: 4px solid #e60012;
-  margin: 0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  box-sizing: border-box;
-}
-
-.quoteText {
-  font-size: 1.05rem;
   font-style: italic;
-  color: #333;
-  line-height: 1.8;
-  margin: 0 0 20px;
-  font-weight: 300;
+  color: #444;
 }
 
-.quoteAttribution {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.richText blockquote p {
+  margin: 0;
 }
 
-.quoteName {
-  font-size: 0.85rem;
+.richText ol,
+.richText ul {
+  padding-left: 1.5em;
+  margin: 0 0 1.2em;
+}
+
+.richText li {
+  margin-bottom: 0.4em;
+}
+
+.richText a {
+  color: var(--news-red);
+  text-decoration: none;
+}
+
+.richText a:hover {
+  text-decoration: underline;
+}
+
+.richText strong {
   font-weight: 700;
-  color: #111;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--news-text);
 }
 
-.quoteTitle {
-  font-size: 0.8rem;
-  color: #888;
-  letter-spacing: 0.5px;
-}
-
-/* ─── NewsVehicleShowcase ─── */
-.vehicleContainer {
-  padding: 60px 80px;
+/* ─── Block 5: NewsContact ─── */
+.contactContainer {
+  font-family: var(--news-font);
   background: #fff;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  padding: 48px var(--news-pad-x);
   box-sizing: border-box;
 }
 
-.vehicleTitle {
-  font-size: 1.1rem;
+.contactTitle {
+  font-size: 1rem;
   font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin: 0 0 16px;
-  color: #111;
+  color: var(--news-text);
+  margin: 0 0 24px;
 }
 
-.vehicleDescription {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.75;
-  margin: 0 0 40px;
-  max-width: 720px;
-}
-
-.vehicleGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.vehicleCard {
-  text-align: center;
-}
-
-.vehicleImage {
+.contactTable {
+  border-collapse: collapse;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 14px;
-  background: #f0f0f0;
-}
-
-.vehicleName {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: #111;
-  margin: 0;
-}
-
-/* ─── NewsCsrHighlights ─── */
-.csrContainer {
-  padding: 60px 80px;
-  background: #f0f0f0;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  box-sizing: border-box;
-}
-
-.csrTitle {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin: 0 0 28px;
-  color: #111;
-}
-
-.csrPillars {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0 0 12px;
-  line-height: 1.75;
-}
-
-.csrPartners {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0 0 32px;
-  line-height: 1.75;
-}
-
-.csrList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.csrItem {
+  max-width: 600px;
   font-size: 0.9rem;
-  color: #333;
-  line-height: 1.6;
-  padding-left: 22px;
-  position: relative;
 }
 
-.csrItem::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: #e60012;
+.contactTh {
+  text-align: left;
+  font-size: 0.75rem;
   font-weight: 700;
-}
-
-/* ─── NewsHospitalList ─── */
-.hospitalContainer {
-  padding: 60px 80px;
-  background: #fff;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  box-sizing: border-box;
-}
-
-.hospitalTitle {
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin: 0 0 40px;
-  color: #111;
+  color: var(--news-muted);
+  padding: 10px 16px;
+  border-bottom: 2px solid #eee;
+  background: #fafafa;
 }
 
-.hospitalGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0 40px;
+.contactRow:hover {
+  background: #fafafa;
 }
 
-.hospitalCard {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 18px 0;
+.contactLabel {
+  padding: 14px 16px;
+  font-weight: 600;
+  color: var(--news-text);
+  border-bottom: 1px solid #eee;
+  white-space: nowrap;
+  width: 140px;
+}
+
+.contactValue {
+  padding: 14px 16px;
   border-bottom: 1px solid #eee;
 }
 
-.hospitalNumber {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #e60012;
-  flex-shrink: 0;
-  line-height: 1;
-  min-width: 32px;
+.contactLink {
+  color: var(--news-red);
+  text-decoration: none;
+  word-break: break-all;
 }
 
-.hospitalName {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #111;
-  margin: 0 0 4px;
-  line-height: 1.4;
-}
-
-.hospitalLocation {
-  font-size: 0.75rem;
-  color: #888;
-  margin: 0;
-  letter-spacing: 0.5px;
+.contactLink:hover {
+  text-decoration: underline;
 }
 
 /* ══════════════════════════════════════
    MOBILE ≤ 768px
 ══════════════════════════════════════ */
 @media (max-width: 768px) {
-  .breadcrumb,
-  .heroContent,
-  .contentContainer,
-  .quoteContainer,
-  .vehicleContainer,
-  .csrContainer,
-  .hospitalContainer {
-    padding-left: 20px;
-    padding-right: 20px;
+  :root {
+    --news-pad-x: 20px;
   }
 
-  .heroHeadline {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+  .headlineText {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
   }
 
-  .vehicleGrid {
-    grid-template-columns: 1fr;
+  .featuredImage {
+    max-height: 280px;
   }
 
-  .hospitalGrid {
-    grid-template-columns: 1fr;
+  .contactTable {
+    font-size: 0.82rem;
+  }
+
+  .contactLabel {
+    width: auto;
+    white-space: normal;
   }
 }

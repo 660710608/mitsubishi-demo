@@ -6,441 +6,248 @@
   <title>Preview — MMTh Solar for Lives | Mitsubishi Motors Thailand</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Helvetica Neue', Arial, sans-serif; background: #fff; color: #111; }
 
-    /* ── Header ── */
-    .site-header {
-      background: #111;
-      padding: 0 40px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .site-header .logo {
-      color: #fff;
-      font-size: 1.1rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-    .site-header .logo span { color: #e60012; }
-
-    /* ── Breadcrumb ── */
-    .breadcrumb {
-      font-size: 0.75rem;
-      color: #888;
-      padding: 16px 80px;
-      letter-spacing: 1px;
-    }
-    .breadcrumb a { color: #888; text-decoration: none; }
-    .breadcrumb a:hover { color: #e60012; }
-
-    /* ── Hero ── */
-    .hero-content {
-      padding: 48px 80px 40px;
-      max-width: 960px;
-    }
-    .hero-date {
-      font-size: 0.8rem;
-      color: #888;
-      margin-bottom: 16px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .hero-headline {
-      font-size: clamp(1.6rem, 3vw, 2.6rem);
-      font-weight: 800;
-      line-height: 1.15;
-      margin-bottom: 20px;
-      color: #111;
-    }
-    .hero-subheading {
-      font-size: 1rem;
-      color: #555;
-      line-height: 1.65;
-      font-weight: 400;
-    }
-    .hero-image-wrapper {
-      width: 100%;
-      overflow: hidden;
-      max-height: 520px;
-      background: #e8e8e8;
-    }
-    .hero-image-wrapper img {
-      width: 100%;
-      height: 520px;
-      object-fit: cover;
-      display: block;
-    }
-    .hero-image-placeholder {
-      width: 100%;
-      height: 400px;
-      background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #e60012 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+    :root {
+      --font: 'Helvetica Neue', Arial, sans-serif;
+      --red: #e60012;
+      --text: #111;
+      --muted: #666;
+      --pad: 80px;
+      --max: 800px;
     }
 
-    /* ── Content ── */
-    .content-block {
-      padding: 32px 80px;
-      max-width: 860px;
-    }
-    .content-block p {
-      font-size: 0.95rem;
-      line-height: 1.85;
-      color: #333;
-    }
+    body { font-family: var(--font); background: #fff; color: var(--text); }
 
-    /* ── Quote ── */
-    .quote-block {
-      padding: 40px 80px;
-      background: #f7f7f7;
-      border-left: 4px solid #e60012;
-    }
-    .quote-block blockquote {
-      font-size: 1.05rem;
-      font-style: italic;
-      color: #333;
-      line-height: 1.8;
-      margin-bottom: 20px;
-      font-weight: 300;
-    }
-    .quote-attribution { display: flex; flex-direction: column; gap: 4px; }
-    .quote-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #111;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .quote-title { font-size: 0.8rem; color: #888; }
-
-    /* ── Vehicle Showcase ── */
-    .vehicle-section {
-      padding: 60px 80px;
-      background: #fff;
-    }
-    .section-title {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      color: #111;
-    }
-    .section-desc {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.75;
-      margin-bottom: 40px;
-      max-width: 720px;
-    }
-    .vehicle-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .vehicle-card { text-align: center; }
-    .vehicle-image-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #f0f0f0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      font-size: 0.75rem;
-      color: #aaa;
-      letter-spacing: 1px;
-    }
-    .vehicle-name {
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #111;
-    }
-
-    /* ── CSR Highlights ── */
-    .csr-section {
-      padding: 60px 80px;
-      background: #f0f0f0;
-    }
-    .csr-pillars, .csr-partners {
-      font-size: 0.85rem;
-      color: #555;
-      line-height: 1.75;
-      margin-bottom: 12px;
-    }
-    .csr-list {
-      list-style: none;
-      margin-top: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-    .csr-list li {
-      font-size: 0.9rem;
-      color: #333;
-      line-height: 1.6;
-      padding-left: 22px;
-      position: relative;
-    }
-    .csr-list li::before {
-      content: '—';
-      position: absolute;
-      left: 0;
-      color: #e60012;
-      font-weight: 700;
-    }
-
-    /* ── Hospital List ── */
-    .hospital-section {
-      padding: 60px 80px;
-      background: #fff;
-    }
-    .hospital-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0 40px;
-    }
-    .hospital-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 18px 0;
-      border-bottom: 1px solid #eee;
-    }
-    .hospital-number {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #e60012;
-      flex-shrink: 0;
-      line-height: 1;
-      min-width: 32px;
-    }
-    .hospital-name {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: #111;
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-    .hospital-location { font-size: 0.75rem; color: #888; }
-
-    /* ── Block Labels ── */
+    /* Block labels */
+    .block-wrap { border-top: 3px solid var(--red); margin-top: 4px; }
     .block-label {
-      font-size: 0.65rem;
+      display: inline-block;
+      font-size: 0.62rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: #fff;
-      background: #e60012;
+      background: var(--red);
       padding: 3px 10px;
-      display: inline-block;
-      margin-bottom: 0;
-      opacity: 0.85;
+      margin: 8px var(--pad) 0;
     }
 
-    /* ── Footer ── */
-    .site-footer {
-      background: #111;
-      color: rgba(255,255,255,0.5);
-      text-align: center;
-      padding: 32px;
+    /* ── Block 1: news_headline ── */
+    .headline-block {
+      padding: 48px var(--pad) 32px;
+      max-width: calc(var(--max) + var(--pad) * 2);
+    }
+    .headline-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .headline-text {
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    /* ── Block 2: news_featured_image ── */
+    .image-block { background: #e8e8e8; width: 100%; }
+    .image-placeholder {
+      width: 100%;
+      height: 460px;
+      background: linear-gradient(135deg, #222 0%, #444 60%, #e60012 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.35);
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    .image-caption {
       font-size: 0.75rem;
-      letter-spacing: 1px;
+      color: var(--muted);
+      padding: 10px var(--pad);
+      background: #fff;
     }
 
-    /* Mobile */
+    /* ── Block 3 & 4: rich text ── */
+    .body-block {
+      padding: 40px var(--pad);
+      max-width: calc(var(--max) + var(--pad) * 2);
+    }
+    .about-block {
+      padding: 48px var(--pad);
+      background: #f7f7f7;
+    }
+    .about-section-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .rich-text { font-size: 0.95rem; line-height: 1.85; color: #333; }
+    .rich-text p { margin-bottom: 1.2em; }
+    .rich-text h2 { font-size: 1.15rem; font-weight: 800; margin: 1.6em 0 0.6em; }
+    .rich-text h3 { font-size: 1rem; font-weight: 700; margin: 1.4em 0 0.5em; }
+    .rich-text blockquote {
+      border-left: 4px solid var(--red);
+      margin: 1.5em 0;
+      padding: 16px 24px;
+      background: #eee;
+      font-style: italic;
+      color: #444;
+    }
+    .rich-text ol, .rich-text ul { padding-left: 1.5em; margin-bottom: 1.2em; }
+    .rich-text li { margin-bottom: 0.4em; }
+
+    /* ── Block 5: news_contact ── */
+    .contact-block { padding: 48px var(--pad); }
+    .contact-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .contact-table {
+      border-collapse: collapse;
+      max-width: 600px;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+    .contact-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 10px 16px;
+      border-bottom: 2px solid #eee;
+      background: #fafafa;
+    }
+    .contact-table td { padding: 14px 16px; border-bottom: 1px solid #eee; }
+    .contact-table td:first-child { font-weight: 600; white-space: nowrap; width: 140px; }
+    .contact-table a { color: var(--red); text-decoration: none; word-break: break-all; }
+    .contact-table a:hover { text-decoration: underline; }
+
     @media (max-width: 768px) {
-      .breadcrumb, .hero-content, .content-block,
-      .quote-block, .vehicle-section, .csr-section, .hospital-section {
-        padding-left: 20px; padding-right: 20px;
-      }
-      .vehicle-grid, .hospital-grid { grid-template-columns: 1fr; }
+      :root { --pad: 20px; }
+      .image-placeholder { height: 220px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Site Header -->
-  <header class="site-header">
-    <div class="logo">MITSUBISHI<span>.</span></div>
-    <nav style="display:flex;gap:24px;">
-      <a href="#" style="color:#fff;text-decoration:none;font-size:0.75rem;letter-spacing:1px;opacity:0.7;">Cars</a>
-      <a href="#" style="color:#fff;text-decoration:none;font-size:0.75rem;letter-spacing:1px;opacity:0.7;">News</a>
-      <a href="#" style="color:#fff;text-decoration:none;font-size:0.75rem;letter-spacing:1px;opacity:0.7;">Servicing</a>
-    </nav>
-  </header>
-
-  <!-- ── Block: news_article_hero ── -->
-  <div style="border-top:2px solid #e60012;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_article_hero</span></div>
-    <nav class="breadcrumb">
-      <a href="#">English</a> › <a href="#">News &amp; Activities</a> › MMTh Solar for Lives
-    </nav>
-    <div class="hero-content">
-      <p class="hero-date">Bangkok — February 27, 2026</p>
-      <h1 class="hero-headline">Mitsubishi Motors Thailand Hands Over Solar Cell System to Long Hospital in Phrae Province Under the 'Solar for Lives' Project</h1>
-      <p class="hero-subheading">Reinforcing commitment to carbon neutrality — 50 kW solar system valued at 1,353,550 baht, the 13th hospital supported under the company's 10-year mission.</p>
-    </div>
-    <div class="hero-image-placeholder">[ Featured Image — Group ceremony photo at Long Hospital ]</div>
-  </div>
-
-  <!-- ── Block: news_article_content ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_article_content</span></div>
-    <div class="content-block">
-      <p>Mitsubishi Motors Thailand (MMTh) handed over a 50-kilowatt solar power system valued at 1,353,550 baht to Long Hospital in Phrae Province, marking the 13th hospital supported under the company's 10-year mission to install solar cell systems in 40 community hospitals across Thailand. The total installed capacity has now exceeded 650 kilowatts nationwide.</p>
+  <!-- Block 1: news_headline -->
+  <div class="block-wrap">
+    <div class="block-label">news_headline</div>
+    <div class="headline-block">
+      <p class="headline-date">Bangkok — February 27, 2026</p>
+      <h1 class="headline-text">Mitsubishi Motors Thailand Hands Over Solar Cell System to Long Hospital in Phrae Province Under the 'Solar for Lives' Project, Reinforcing Its Commitment to Carbon Neutrality</h1>
     </div>
   </div>
 
-  <!-- ── Block: news_article_quote ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_article_quote</span></div>
-    <div class="quote-block">
-      <blockquote>"By transforming 'energy costs' into 'medical opportunities,' hospitals can reallocate their budgets toward better patient care. Long Hospital is expected to reduce electricity expenses by up to 300,000 baht per year."</blockquote>
-      <footer class="quote-attribution">
-        <strong class="quote-name">Mr. Sarote Maartlert</strong>
-        <span class="quote-title">Executive Vice President, Mitsubishi Motors Thailand</span>
-      </footer>
+  <!-- Block 2: news_featured_image -->
+  <div class="block-wrap">
+    <div class="block-label">news_featured_image</div>
+    <div class="image-block">
+      <div class="image-placeholder">[ Featured Image — Ceremony photo ]</div>
+      <p class="image-caption">Mr. Sarote Maartlert (EVP) and Dr. Warawut Somboon (Long Hospital Director) at the solar system handover ceremony, Phrae Province.</p>
     </div>
   </div>
 
-  <!-- ── Block: news_article_content ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_article_content</span></div>
-    <div class="content-block">
-      <p>The ceremony also featured test-drive opportunities for three of Mitsubishi's latest hybrid models, bringing sustainable mobility directly to the local community and reinforcing the company's commitment to both environmental responsibility and community well-being.</p>
-    </div>
-  </div>
+  <!-- Block 3: news_body -->
+  <div class="block-wrap">
+    <div class="block-label">news_body (rich text)</div>
+    <div class="body-block">
+      <div class="rich-text">
+        <p>Mitsubishi Motors Thailand (MMTh) handed over a 50-kilowatt solar power system valued at 1,353,550 baht to Long Hospital in Phrae Province, marking the 13th hospital supported under the company's 10-year mission to install solar cell systems in 40 community hospitals across Thailand. The total installed capacity has now exceeded 650 kilowatts nationwide.</p>
 
-  <!-- ── Block: news_article_quote ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_article_quote</span></div>
-    <div class="quote-block">
-      <blockquote>"We are deeply grateful to Mitsubishi Motors Thailand for this generous support. The solar system will significantly reduce our operational costs, allowing us to invest more resources directly into patient care and hospital services."</blockquote>
-      <footer class="quote-attribution">
-        <strong class="quote-name">Dr. Warawut Somboon</strong>
-        <span class="quote-title">Director, Long Hospital, Phrae Province</span>
-      </footer>
-    </div>
-  </div>
+        <blockquote>
+          <p>"By transforming 'energy costs' into 'medical opportunities,' hospitals can reallocate their budgets toward better patient care. Long Hospital is expected to reduce electricity expenses by up to 300,000 baht per year."</p>
+          <p><strong>Mr. Sarote Maartlert</strong> — Executive Vice President, Mitsubishi Motors Thailand</p>
+        </blockquote>
 
-  <!-- ── Block: news_vehicle_showcase ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_vehicle_showcase</span></div>
-    <section class="vehicle-section">
-      <h2 class="section-title">Vehicles Featured at the Ceremony</h2>
-      <p class="section-desc">Mitsubishi offered test-drive experiences with three of its latest hybrid models, showcasing the brand's commitment to sustainable mobility alongside the solar handover event.</p>
-      <div class="vehicle-grid">
-        <div class="vehicle-card">
-          <div class="vehicle-image-placeholder">[ Vehicle Image ]</div>
-          <p class="vehicle-name">All-New Mitsubishi XFORCE HEV</p>
-        </div>
-        <div class="vehicle-card">
-          <div class="vehicle-image-placeholder">[ Vehicle Image ]</div>
-          <p class="vehicle-name">Mitsubishi XPANDER Cross HEV</p>
-        </div>
-        <div class="vehicle-card">
-          <div class="vehicle-image-placeholder">[ Vehicle Image ]</div>
-          <p class="vehicle-name">Mitsubishi TRITON Mega Cab</p>
-        </div>
+        <blockquote>
+          <p>"We are deeply grateful to Mitsubishi Motors Thailand for this generous support. The solar system will significantly reduce our operational costs, allowing us to invest more resources directly into patient care."</p>
+          <p><strong>Dr. Warawut Somboon</strong> — Director, Long Hospital</p>
+        </blockquote>
+
+        <p>The ceremony also featured test-drive opportunities for Mitsubishi's latest hybrid models: the ALL-NEW MITSUBISHI XFORCE HEV, MITSUBISHI XPANDER CROSS HEV, and MITSUBISHI TRITON MEGA CAB, reinforcing the company's commitment to sustainable mobility alongside the solar handover event.</p>
+
+        <h2>Community Hospitals with Solar Installations</h2>
+        <ol>
+          <li>Namphong Hospital, Khon Kaen</li>
+          <li>Phaya Mengrai Hospital, Chiang Rai</li>
+          <li>Khaochaison Hospital, Phatthalung</li>
+          <li>Vibhavadi Hospital, Surat Thani</li>
+          <li>Pong Hospital, Phayao</li>
+          <li>Chanuman Hospital, Amnat Charoen</li>
+          <li>Dan Makham Tia Hospital, Kanchanaburi</li>
+          <li>Ban Rai Hospital, Uthai Thani</li>
+          <li>Nadi Hospital, Prachinburi</li>
+          <li>Nayaiam Hospital, Chanthaburi</li>
+          <li>Phoncharoen Hospital, Bueng Kan</li>
+          <li>Sakhrai Hospital, Nong Khai</li>
+          <li>Long Hospital, Phrae</li>
+        </ol>
+
+        <h2>At a Glance</h2>
+        <ul>
+          <li>50 kW solar system handed over to Long Hospital, Phrae Province</li>
+          <li>13th hospital supported — target is 40 hospitals over 10 years</li>
+          <li>Total installed capacity exceeds 650 kilowatts nationwide</li>
+          <li>Expected annual savings of up to 300,000 baht per hospital</li>
+          <li>CSR Pillars: Education, Environment, Health</li>
+          <li>Partners: Ministry of Public Health, EGAT, Thailand Greenhouse Gas Management Organization</li>
+        </ul>
       </div>
-    </section>
+    </div>
   </div>
 
-  <!-- ── Block: news_csr_highlights ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_csr_highlights</span></div>
-    <section class="csr-section">
-      <h2 class="section-title">At a Glance</h2>
-      <p class="csr-pillars"><strong>CSR Pillars:</strong> Education, Environment, Health</p>
-      <p class="csr-partners"><strong>Partners:</strong> Ministry of Public Health, EGAT, Thailand Greenhouse Gas Management Organization</p>
-      <ul class="csr-list">
-        <li>50 kW solar system handed over to Long Hospital, Phrae Province</li>
-        <li>13th hospital supported — target is 40 community hospitals over 10 years</li>
-        <li>Total installed capacity now exceeds 650 kilowatts nationwide</li>
-        <li>Estimated annual savings of up to 300,000 baht per hospital</li>
-        <li>Part of Mitsubishi Motors Thailand's carbon neutrality commitment</li>
-      </ul>
-    </section>
-  </div>
-
-  <!-- ── Block: news_hospital_list ── -->
-  <div style="border-top:2px solid #e60012;margin-top:2px;">
-    <div style="padding:8px 80px 0;"><span class="block-label">news_hospital_list</span></div>
-    <section class="hospital-section">
-      <h2 class="section-title" style="margin-bottom:40px;">13 Community Hospitals with Solar Installations</h2>
-      <div class="hospital-grid">
-        <div class="hospital-card">
-          <span class="hospital-number">01</span>
-          <div><p class="hospital-name">Ban Pong Hospital</p><p class="hospital-location">Ratchaburi</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">02</span>
-          <div><p class="hospital-name">Kaeng Krachan Hospital</p><p class="hospital-location">Phetchaburi</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">03</span>
-          <div><p class="hospital-name">Wang Nam Yen Hospital</p><p class="hospital-location">Sa Kaeo</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">04</span>
-          <div><p class="hospital-name">Khao Saming Hospital</p><p class="hospital-location">Trat</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">05</span>
-          <div><p class="hospital-name">Na Yia Hospital</p><p class="hospital-location">Ubon Ratchathani</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">06</span>
-          <div><p class="hospital-name">Kut Khaopun Hospital</p><p class="hospital-location">Yasothon</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">07</span>
-          <div><p class="hospital-name">Wang Thong Hospital</p><p class="hospital-location">Phitsanulok</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">08</span>
-          <div><p class="hospital-name">Mueang Pan Hospital</p><p class="hospital-location">Lampang</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">09</span>
-          <div><p class="hospital-name">Ban Hong Hospital</p><p class="hospital-location">Lamphun</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">10</span>
-          <div><p class="hospital-name">Mae Charim Hospital</p><p class="hospital-location">Nan</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">11</span>
-          <div><p class="hospital-name">Wiang Sa Hospital</p><p class="hospital-location">Nan</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">12</span>
-          <div><p class="hospital-name">Pua Hospital</p><p class="hospital-location">Nan</p></div>
-        </div>
-        <div class="hospital-card">
-          <span class="hospital-number">13</span>
-          <div><p class="hospital-name">Long Hospital</p><p class="hospital-location">Phrae</p></div>
-        </div>
+  <!-- Block 4: news_about -->
+  <div class="block-wrap">
+    <div class="block-label">news_about (rich text)</div>
+    <div class="about-block">
+      <h2 class="about-section-title">About Mitsubishi Motors Thailand (MMTh)</h2>
+      <div class="rich-text">
+        <p>Mitsubishi Motors (Thailand) Co., Ltd. (MMTh) is a subsidiary of Mitsubishi Motors Corporation, Japan. Established in 1995, MMTh manufactures and sells vehicles in Thailand and exports to global markets. As of 2024, cumulative production has exceeded seven million units.</p>
+        <p>MMTh operates a production facility in Laem Chabang, Chonburi, along with a Mitsubishi Motors Education Academy and a proving ground in Si Racha. The company's vehicle lineup includes the Triton, Pajero Sport, Outlander, Xpander, and Xforce models.</p>
+        <p>For more information, visit <a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a>.</p>
       </div>
-    </section>
+    </div>
   </div>
 
-  <footer class="site-footer">
-    © 2026 Mitsubishi Motors Thailand — Static Block Preview
-    <br><br>
-    <span style="opacity:0.4;font-size:0.65rem;">Red labels show Storyblok block names. Images are placeholders — replace with actual assets in Storyblok.</span>
-  </footer>
+  <!-- Block 5: news_contact -->
+  <div class="block-wrap">
+    <div class="block-label">news_contact</div>
+    <div class="contact-block">
+      <h2 class="contact-title">ช่องทางการติดต่อ</h2>
+      <table class="contact-table">
+        <thead>
+          <tr>
+            <th>ช่องทาง</th>
+            <th>ลิงก์</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Website</td><td><a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a></td></tr>
+          <tr><td>Facebook</td><td><a href="https://www.facebook.com/MitsubishiMotorsTH">www.facebook.com/MitsubishiMotorsTH</a></td></tr>
+          <tr><td>Instagram</td><td><a href="https://www.instagram.com/MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td></tr>
+          <tr><td>YouTube</td><td><a href="https://www.youtube.com/@MitsubishiMotorsTH">Mitsubishi Motors Thailand</a></td></tr>
+          <tr><td>LINE</td><td><a href="https://line.me/R/ti/p/@MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="background:#111;color:rgba(255,255,255,0.35);text-align:center;padding:24px;font-size:0.7rem;letter-spacing:1px;margin-top:4px;">
+    STATIC BLOCK PREVIEW — Red labels = Storyblok block names
+  </div>
 
 </body>
 </html>
