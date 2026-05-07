@@ -2,6 +2,16 @@ import { StoryblokStory } from '@storyblok/react/rsc';
 import { getStoryblokApi, getStoryVersion } from '@/lib/storyblok';
 import { notFound } from 'next/navigation';
 
+async function fetchStory(slug, version) {
+	const storyblokApi = getStoryblokApi();
+	try {
+		const response = await storyblokApi.get(`cdn/stories/${slug}`, { version });
+		return response.data;
+	} catch {
+		return null;
+	}
+}
+
 export default async function Page({ params, searchParams }) {
 	const { slug } = await params;
 	const resolvedSearchParams = await searchParams;
@@ -10,23 +20,10 @@ export default async function Page({ params, searchParams }) {
 	const isVisualEditor = resolvedSearchParams?._storyblok !== undefined;
 	const version = getStoryVersion(isVisualEditor);
 
-	const storyblokApi = getStoryblokApi();
+	let data = await fetchStory(fullSlug, version);
 
-	let data;
-	try {
-		const response = await storyblokApi.get(`cdn/stories/${fullSlug}`, { version });
-		data = response.data;
-	} catch (e) {
-		if (version === 'published') {
-			try {
-				const response = await storyblokApi.get(`cdn/stories/${fullSlug}`, { version: 'draft' });
-				data = response.data;
-			} catch (e2) {
-				return notFound();
-			}
-		} else {
-			return notFound();
-		}
+	if (!data?.story && version === 'published') {
+		data = await fetchStory(fullSlug, 'draft');
 	}
 
 	if (!data?.story) return notFound();
