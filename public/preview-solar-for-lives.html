@@ -3,183 +3,276 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Preview — MMTh Solar for Lives | Mitsubishi Motors Thailand</title>
+  <title>Mitsubishi Motors Thailand Hands Over Solar Cell System to Long Hospital</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --font: 'Helvetica Neue', Arial, sans-serif;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --red: #e60012;
-      --text: #111;
-      --muted: #666;
-      --pad: 80px;
-      --max: 800px;
+      --black: #1a1a1a;
+      --body-text: #3c3c3c;
+      --muted: #767676;
+      --light-bg: #f5f5f5;
+      --border: #e5e5e5;
+      --content-max: 760px;
+      --pad: 40px;
     }
 
-    body { font-family: var(--font); background: #fff; color: var(--text); }
-
-    /* Block labels */
-    .block-wrap { border-top: 3px solid var(--red); margin-top: 4px; }
-    .block-label {
-      display: inline-block;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #fff;
-      background: var(--red);
-      padding: 3px 10px;
-      margin: 8px var(--pad) 0;
+    body {
+      font-family: var(--font);
+      background: #fff;
+      color: var(--body-text);
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── Block 1: news_headline ── */
     .headline-block {
-      padding: 48px var(--pad) 32px;
-      max-width: calc(var(--max) + var(--pad) * 2);
+      padding: 40px var(--pad) 24px;
     }
+
     .headline-date {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: var(--muted);
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      font-weight: 400;
     }
+
     .headline-text {
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      font-weight: 800;
-      line-height: 1.2;
-      color: var(--text);
+      font-size: clamp(1.4rem, 2.4vw, 2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--black);
+      max-width: var(--content-max);
     }
 
     /* ── Block 2: news_featured_image ── */
-    .image-block { background: #e8e8e8; width: 100%; }
+    .image-block {
+      width: 100%;
+      background: #222;
+    }
+
+    .image-block img,
     .image-placeholder {
       width: 100%;
-      height: 460px;
-      background: linear-gradient(135deg, #222 0%, #444 60%, #e60012 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.35);
-      font-size: 0.8rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
+      display: block;
     }
+
+    .image-placeholder {
+      height: 480px;
+      background: #ccc url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="%23999"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>') center/80px no-repeat;
+    }
+
     .image-caption {
       font-size: 0.75rem;
       color: var(--muted);
+      line-height: 1.6;
       padding: 10px var(--pad);
       background: #fff;
+      border-bottom: 1px solid var(--border);
     }
 
-    /* ── Block 3 & 4: rich text ── */
+    /* ── Block 3: news_body ── */
     .body-block {
-      padding: 40px var(--pad);
-      max-width: calc(var(--max) + var(--pad) * 2);
+      padding: 32px var(--pad) 40px;
     }
+
+    /* ── Block 4: news_about ── */
     .about-block {
-      padding: 48px var(--pad);
-      background: #f7f7f7;
+      padding: 40px var(--pad);
+      background: var(--light-bg);
+      border-top: 1px solid var(--border);
     }
+
     .about-section-title {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 3px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      color: var(--black);
+      margin-bottom: 16px;
     }
-    .rich-text { font-size: 0.95rem; line-height: 1.85; color: #333; }
-    .rich-text p { margin-bottom: 1.2em; }
-    .rich-text h2 { font-size: 1.15rem; font-weight: 800; margin: 1.6em 0 0.6em; }
-    .rich-text h3 { font-size: 1rem; font-weight: 700; margin: 1.4em 0 0.5em; }
+
+    /* ── Shared rich text ── */
+    .rich-text {
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: var(--body-text);
+      max-width: var(--content-max);
+    }
+
+    .rich-text p { margin-bottom: 1.1em; }
+    .rich-text p:last-child { margin-bottom: 0; }
+
+    .rich-text h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin: 1.8em 0 0.6em;
+      line-height: 1.4;
+    }
+
     .rich-text blockquote {
-      border-left: 4px solid var(--red);
-      margin: 1.5em 0;
-      padding: 16px 24px;
-      background: #eee;
-      font-style: italic;
-      color: #444;
+      margin: 1.6em 0;
+      padding: 20px 24px;
+      background: #fff;
+      border-left: 3px solid var(--red);
     }
-    .rich-text ol, .rich-text ul { padding-left: 1.5em; margin-bottom: 1.2em; }
-    .rich-text li { margin-bottom: 0.4em; }
+
+    .rich-text blockquote p {
+      margin: 0 0 0.5em;
+      line-height: 1.75;
+    }
+
+    .rich-text blockquote .attribution {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .rich-text ol {
+      padding-left: 1.4em;
+      margin: 0 0 1.1em;
+      counter-reset: none;
+    }
+
+    .rich-text li {
+      margin-bottom: 0.35em;
+      line-height: 1.7;
+    }
+
+    .rich-text a { color: var(--red); text-decoration: none; }
+    .rich-text a:hover { text-decoration: underline; }
+    .rich-text strong { font-weight: 700; color: var(--black); }
 
     /* ── Block 5: news_contact ── */
-    .contact-block { padding: 48px var(--pad); }
-    .contact-title {
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 24px;
+    .contact-block {
+      padding: 40px var(--pad) 48px;
+      border-top: 1px solid var(--border);
     }
+
+    .contact-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
     .contact-table {
       border-collapse: collapse;
-      max-width: 600px;
+      max-width: 540px;
       width: 100%;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
+
     .contact-table th {
       text-align: left;
       font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 10px 16px;
-      border-bottom: 2px solid #eee;
-      background: #fafafa;
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+      background: var(--light-bg);
     }
-    .contact-table td { padding: 14px 16px; border-bottom: 1px solid #eee; }
-    .contact-table td:first-child { font-weight: 600; white-space: nowrap; width: 140px; }
-    .contact-table a { color: var(--red); text-decoration: none; word-break: break-all; }
-    .contact-table a:hover { text-decoration: underline; }
+
+    .contact-table tr:hover td { background: #fafafa; }
+
+    .contact-table td {
+      padding: 12px 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-table td:first-child {
+      font-weight: 600;
+      color: var(--black);
+      white-space: nowrap;
+      width: 120px;
+    }
+
+    .contact-table a {
+      color: var(--body-text);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .contact-table a:hover { color: var(--red); text-decoration: underline; }
+
+    /* ── Dev labels (remove in production) ── */
+    .dev-label {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fff;
+      background: rgba(230,0,18,0.75);
+      padding: 2px 8px;
+      margin: 0 var(--pad);
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .block-wrap {
+      border-top: 2px solid rgba(230,0,18,0.2);
+      padding-top: 4px;
+    }
 
     @media (max-width: 768px) {
-      :root { --pad: 20px; }
-      .image-placeholder { height: 220px; }
+      :root { --pad: 16px; }
+      .image-placeholder { height: 240px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Block 1: news_headline -->
+  <!-- ─── Block 1: news_headline ─── -->
   <div class="block-wrap">
-    <div class="block-label">news_headline</div>
+    <span class="dev-label">news_headline</span>
     <div class="headline-block">
-      <p class="headline-date">Bangkok — February 27, 2026</p>
+      <p class="headline-date">27 February 2026</p>
       <h1 class="headline-text">Mitsubishi Motors Thailand Hands Over Solar Cell System to Long Hospital in Phrae Province Under the 'Solar for Lives' Project, Reinforcing Its Commitment to Carbon Neutrality</h1>
     </div>
   </div>
 
-  <!-- Block 2: news_featured_image -->
+  <!-- ─── Block 2: news_featured_image ─── -->
   <div class="block-wrap">
-    <div class="block-label">news_featured_image</div>
+    <span class="dev-label">news_featured_image</span>
     <div class="image-block">
-      <div class="image-placeholder">[ Featured Image — Ceremony photo ]</div>
-      <p class="image-caption">Mr. Sarote Maartlert (EVP) and Dr. Warawut Somboon (Long Hospital Director) at the solar system handover ceremony, Phrae Province.</p>
+      <div class="image-placeholder"></div>
+      <p class="image-caption">Representatives from Mitsubishi Motors Thailand, Long Hospital, EGAT, and local dealership partners at the solar system handover ceremony, Phrae Province, February 27, 2026.</p>
     </div>
   </div>
 
-  <!-- Block 3: news_body -->
+  <!-- ─── Block 3: news_body ─── -->
   <div class="block-wrap">
-    <div class="block-label">news_body (rich text)</div>
+    <span class="dev-label">news_body (rich text)</span>
     <div class="body-block">
       <div class="rich-text">
-        <p>Mitsubishi Motors Thailand (MMTh) handed over a 50-kilowatt solar power system valued at 1,353,550 baht to Long Hospital in Phrae Province, marking the 13th hospital supported under the company's 10-year mission to install solar cell systems in 40 community hospitals across Thailand. The total installed capacity has now exceeded 650 kilowatts nationwide.</p>
+
+        <p>Mitsubishi Motors (Thailand) Co., Ltd. (MMTh) held the handover ceremony for solar cell systems under the "<strong>Solar for Lives</strong>" project at Long Hospital, Phrae Province, on February 27, 2026. The 50-kilowatt solar power system, valued at 1,353,550 baht, marks the 13th hospital supported under the company's 10-year mission to install solar systems in 40 community hospitals across Thailand. Total installed capacity has now exceeded 650 kilowatts nationwide.</p>
+
+        <p>The ceremony was presided over by Mr. Sarote Maartlert, Executive Vice President of Mitsubishi Motors Thailand, Ms. Prom-Usa Salee, and Dr. Warawut Somboon, Director of Long Hospital, along with representatives from EGAT, Thailand Greenhouse Gas Management Organization, and the local Mitsubishi dealership.</p>
 
         <blockquote>
           <p>"By transforming 'energy costs' into 'medical opportunities,' hospitals can reallocate their budgets toward better patient care. Long Hospital is expected to reduce electricity expenses by up to 300,000 baht per year."</p>
-          <p><strong>Mr. Sarote Maartlert</strong> — Executive Vice President, Mitsubishi Motors Thailand</p>
+          <p class="attribution"><strong>Mr. Sarote Maartlert</strong> — Executive Vice President, Mitsubishi Motors Thailand</p>
         </blockquote>
 
         <blockquote>
-          <p>"We are deeply grateful to Mitsubishi Motors Thailand for this generous support. The solar system will significantly reduce our operational costs, allowing us to invest more resources directly into patient care."</p>
-          <p><strong>Dr. Warawut Somboon</strong> — Director, Long Hospital</p>
+          <p>"We are deeply grateful to Mitsubishi Motors Thailand for this generous support. The solar system will significantly reduce our operational costs, allowing us to invest more resources directly into patient care and hospital services."</p>
+          <p class="attribution"><strong>Dr. Warawut Somboon</strong> — Director, Long Hospital, Phrae Province</p>
         </blockquote>
 
-        <p>The ceremony also featured test-drive opportunities for Mitsubishi's latest hybrid models: the ALL-NEW MITSUBISHI XFORCE HEV, MITSUBISHI XPANDER CROSS HEV, and MITSUBISHI TRITON MEGA CAB, reinforcing the company's commitment to sustainable mobility alongside the solar handover event.</p>
+        <p>In addition to the handover ceremony, the event featured test-drive opportunities for Mitsubishi's latest hybrid models — the ALL-NEW MITSUBISHI XFORCE HEV, MITSUBISHI XPANDER CROSS HEV, and MITSUBISHI TRITON MEGA CAB — reinforcing the company's commitment to sustainable mobility alongside its community health initiative.</p>
 
-        <h2>Community Hospitals with Solar Installations</h2>
+        <p>The "Solar for Lives" project is part of Mitsubishi Motors Thailand's broader CSR strategy spanning the pillars of Education, Environment, and Health. Key partners include the Ministry of Public Health, EGAT, and the Thailand Greenhouse Gas Management Organization.</p>
+
+        <h2>Community Hospitals Supported by the Solar for Lives Project</h2>
         <ol>
           <li>Namphong Hospital, Khon Kaen</li>
           <li>Phaya Mengrai Hospital, Chiang Rai</li>
@@ -198,35 +291,35 @@
 
         <h2>At a Glance</h2>
         <ul>
-          <li>50 kW solar system handed over to Long Hospital, Phrae Province</li>
-          <li>13th hospital supported — target is 40 hospitals over 10 years</li>
-          <li>Total installed capacity exceeds 650 kilowatts nationwide</li>
-          <li>Expected annual savings of up to 300,000 baht per hospital</li>
-          <li>CSR Pillars: Education, Environment, Health</li>
-          <li>Partners: Ministry of Public Health, EGAT, Thailand Greenhouse Gas Management Organization</li>
+          <li>50 kW solar system, valued at 1,353,550 baht, handed over to Long Hospital</li>
+          <li>13th hospital supported — target is 40 community hospitals over 10 years</li>
+          <li>Total installed capacity now exceeds 650 kilowatts nationwide</li>
+          <li>Expected annual electricity savings of up to 300,000 baht per hospital</li>
+          <li>Part of MMTh's commitment to carbon neutrality</li>
         </ul>
+
       </div>
     </div>
   </div>
 
-  <!-- Block 4: news_about -->
+  <!-- ─── Block 4: news_about ─── -->
   <div class="block-wrap">
-    <div class="block-label">news_about (rich text)</div>
+    <span class="dev-label">news_about</span>
     <div class="about-block">
       <h2 class="about-section-title">About Mitsubishi Motors Thailand (MMTh)</h2>
       <div class="rich-text">
-        <p>Mitsubishi Motors (Thailand) Co., Ltd. (MMTh) is a subsidiary of Mitsubishi Motors Corporation, Japan. Established in 1995, MMTh manufactures and sells vehicles in Thailand and exports to global markets. As of 2024, cumulative production has exceeded seven million units.</p>
-        <p>MMTh operates a production facility in Laem Chabang, Chonburi, along with a Mitsubishi Motors Education Academy and a proving ground in Si Racha. The company's vehicle lineup includes the Triton, Pajero Sport, Outlander, Xpander, and Xforce models.</p>
-        <p>For more information, visit <a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a>.</p>
+        <p>Mitsubishi Motors (Thailand) Co., Ltd. (MMTh) is a subsidiary of Mitsubishi Motors Corporation, Japan, and one of Thailand's leading automotive manufacturers. Established in 1995, MMTh produces vehicles at its Laem Chabang, Chonburi facility for both the domestic market and global export. As of 2024, cumulative production has surpassed seven million units.</p>
+        <p>MMTh's current vehicle lineup includes the Triton, Pajero Sport, Outlander, Xpander, Xpander Cross, and Xforce. The company also operates the Mitsubishi Motors Education Academy and a proving ground in Si Racha, Chonburi.</p>
+        <p>For more information, please visit <a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a>.</p>
       </div>
     </div>
   </div>
 
-  <!-- Block 5: news_contact -->
+  <!-- ─── Block 5: news_contact ─── -->
   <div class="block-wrap">
-    <div class="block-label">news_contact</div>
+    <span class="dev-label">news_contact</span>
     <div class="contact-block">
-      <h2 class="contact-title">ช่องทางการติดต่อ</h2>
+      <h2 class="contact-title">ช่องทางการติดต่อ / Contact</h2>
       <table class="contact-table">
         <thead>
           <tr>
@@ -235,18 +328,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>Website</td><td><a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a></td></tr>
-          <tr><td>Facebook</td><td><a href="https://www.facebook.com/MitsubishiMotorsTH">www.facebook.com/MitsubishiMotorsTH</a></td></tr>
-          <tr><td>Instagram</td><td><a href="https://www.instagram.com/MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td></tr>
-          <tr><td>YouTube</td><td><a href="https://www.youtube.com/@MitsubishiMotorsTH">Mitsubishi Motors Thailand</a></td></tr>
-          <tr><td>LINE</td><td><a href="https://line.me/R/ti/p/@MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td></tr>
+          <tr>
+            <td>Website</td>
+            <td><a href="https://www.mitsubishi-motors.co.th">www.mitsubishi-motors.co.th</a></td>
+          </tr>
+          <tr>
+            <td>Facebook</td>
+            <td><a href="https://www.facebook.com/MitsubishiMotorsTH">www.facebook.com/MitsubishiMotorsTH</a></td>
+          </tr>
+          <tr>
+            <td>Instagram</td>
+            <td><a href="https://www.instagram.com/MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td>
+          </tr>
+          <tr>
+            <td>YouTube</td>
+            <td><a href="https://www.youtube.com/@MitsubishiMotorsTH">Mitsubishi Motors Thailand</a></td>
+          </tr>
+          <tr>
+            <td>LINE</td>
+            <td><a href="https://line.me/R/ti/p/@MitsubishiMotorsTh">@MitsubishiMotorsTh</a></td>
+          </tr>
         </tbody>
       </table>
     </div>
-  </div>
-
-  <div style="background:#111;color:rgba(255,255,255,0.35);text-align:center;padding:24px;font-size:0.7rem;letter-spacing:1px;margin-top:4px;">
-    STATIC BLOCK PREVIEW — Red labels = Storyblok block names
   </div>
 
 </body>
