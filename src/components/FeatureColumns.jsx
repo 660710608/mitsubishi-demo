@@ -39,6 +39,8 @@ const FeatureColumns = ({ blok }) => {
             minHeight: isMobile ? '80vw' : '80vh',
             textDecoration: 'none',
             display: 'block',
+            marginTop: isMobile ? '10px' : 0,
+            marginBottom: isMobile ? '10px' : 0,
           }}
         >
           {/* Background Image */}
