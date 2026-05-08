@@ -49,7 +49,7 @@ const getStoryblokApi = storyblokInit({
 export function getStoryVersion(isVisualEditor) {
 	const mode = process.env.NEXT_PUBLIC_STORYBLOK_MODE;
 	if (mode === 'preview') return 'draft';
-	if (mode === 'live') return isVisualEditor ? 'draft' : 'published';
+	if (mode === 'live') return 'published';
 	return 'draft';
 }
 

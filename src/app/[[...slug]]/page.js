@@ -13,13 +13,11 @@ async function fetchStory(slug, version) {
 	}
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page({ params }) {
 	const { slug } = await params;
-	const resolvedSearchParams = await searchParams;
 	const fullSlug = slug ? slug.filter(s => s !== 'en' && s !== 'th').join('/') : 'home';
 
-	const isVisualEditor = resolvedSearchParams?._storyblok !== undefined;
-	const version = getStoryVersion(isVisualEditor);
+	const version = getStoryVersion();
 
 	let data = await fetchStory(fullSlug, version);
 

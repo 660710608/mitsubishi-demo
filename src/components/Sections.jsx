@@ -190,8 +190,10 @@ export const NewsSection = ({ blok }) => {
 		const fetchNews = async () => {
 			try {
 				const token = process.env.NEXT_PUBLIC_STORYBLOK_TOKEN || 'xCxGft29IjcKPCRQ65UR6Att';
+				const mode = process.env.NEXT_PUBLIC_STORYBLOK_MODE || 'draft';
+				const version = mode === 'live' ? 'published' : 'draft';
 				const response = await fetch(
-					`https://api.storyblok.com/v2/cdn/stories?starts_with=news/&per_page=5&sort_by=created_at:desc&token=${token}&version=draft`
+					`https://api.storyblok.com/v2/cdn/stories?starts_with=news/&per_page=5&sort_by=created_at:desc&token=${token}&version=${version}`
 				);
 				const data = await response.json();
 				const articles = data.stories

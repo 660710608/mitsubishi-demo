@@ -18,11 +18,9 @@ async function fetchNewsStory(slug, version) {
 	}
 }
 
-export async function generateMetadata({ params, searchParams }) {
+export async function generateMetadata({ params }) {
 	const { slug } = await params;
-	const resolvedSearchParams = await searchParams;
-	const isVisualEditor = resolvedSearchParams?._storyblok !== undefined;
-	const version = getStoryVersion(isVisualEditor);
+	const version = getStoryVersion();
 
 	let story = await fetchNewsStory(slug, version);
 	if (!story && version === 'published') {
@@ -36,11 +34,9 @@ export async function generateMetadata({ params, searchParams }) {
 	};
 }
 
-export default async function NewsArticlePage({ params, searchParams }) {
+export default async function NewsArticlePage({ params }) {
 	const { slug } = await params;
-	const resolvedSearchParams = await searchParams;
-	const isVisualEditor = resolvedSearchParams?._storyblok !== undefined;
-	const version = getStoryVersion(isVisualEditor);
+	const version = getStoryVersion();
 
 	let story = await fetchNewsStory(slug, version);
 	if (!story && version === 'published') {
